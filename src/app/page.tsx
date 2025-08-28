@@ -241,8 +241,10 @@ export default function Home() {
             {/* Left Section - Navigation Links */}
             <nav className="flex items-center space-x-6 text-sm text-zinc-500 dark:text-zinc-400" aria-label="Enlaces del pie de página">
               <a href="/precios" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Precios</a>
-              <a href="/docs" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Docs</a>
-              <a href="/blog" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Blog</a>
+              <a href="/privacidad" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Privacidad</a>
+              <a href="/terminos" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Términos</a>
+              <a href="/cookies" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Cookies</a>
+              <a href="/aviso-legal" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Aviso Legal</a>
             </nav>
             
             {/* Center Section - Company Information */}
