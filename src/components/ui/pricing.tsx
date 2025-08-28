@@ -3,7 +3,6 @@
 import { buttonVariants } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useMediaQuery } from "@/hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Check, Star } from "lucide-react";
@@ -34,7 +33,6 @@ export function Pricing({
   description = "Elige el plan que mejor funcione para ti\nTodos los planes incluyen acceso a nuestra plataforma, herramientas de generación de leads y soporte dedicado.",
 }: PricingProps) {
   const [isMonthly, setIsMonthly] = useState(true);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
   const switchRef = useRef<HTMLButtonElement>(null);
 
   const handleToggle = (checked: boolean) => {
