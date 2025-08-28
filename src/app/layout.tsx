@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://weblabs.studio'),
+  metadataBase: new URL('https://webmakingstudio.com'),
   alternates: {
     canonical: '/',
     languages: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://weblabs.studio',
+    url: 'https://webmakingstudio.com',
     title: 'WEBLABS STUDIO - Expertos en Creación de Páginas Web Profesionales',
     description: 'Creamos sitios web modernos, rápidos y personalizados que generan resultados reales para tu empresa. SEO optimizado y diseño responsive.',
     siteName: 'WEBLABS STUDIO',
