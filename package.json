@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "convert-images": "node scripts/convert-images.js",
-    "optimize-images": "npm run convert-images && echo '🎨 Imágenes convertidas y optimizadas'"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
