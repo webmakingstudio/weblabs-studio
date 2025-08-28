@@ -4,6 +4,7 @@ import './globals.css'
 import JsonLd from '@/components/JsonLd'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 import ConsentBanner from '@/components/ConsentBanner'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -103,6 +104,7 @@ export default function RootLayout({
           {children}
         </div>
         <ConsentBanner />
+        <Analytics />
       </body>
     </html>
   )
