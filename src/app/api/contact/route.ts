@@ -31,115 +31,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Preparar datos del email
+    // Crear plantilla de email usando nuestro servicio
+    const emailTemplate = createContactEmailTemplate({
+      nombre,
+      email,
+      empresa,
+      telefono,
+      servicio,
+      mensaje,
+      consentimientos
+    });
+
+    // Preparar datos del email para Resend
     const emailData = {
-      to: process.env.CONTACT_EMAIL || 'info@webmakingstudio.com', // Tu email
-      from: process.env.FROM_EMAIL || 'noreply@webmakingstudio.com',
+      to: process.env.CONTACT_EMAIL || '',
+      from: process.env.FROM_EMAIL || '',
       subject: `🆕 Nuevo formulario de contacto - ${nombre}`,
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <title>Nuevo Formulario de Contacto</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-            .field { margin-bottom: 15px; }
-            .label { font-weight: bold; color: #22c55e; }
-            .value { background: #f8f9fa; padding: 10px; border-radius: 5px; border-left: 4px solid #22c55e; }
-            .consent { background: #e8f5e8; padding: 15px; border-radius: 5px; border: 1px solid #22c55e; }
-            .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; font-size: 12px; color: #666; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <h1>🆕 Nuevo Formulario de Contacto</h1>
-              <p>Has recibido una nueva solicitud de contacto desde tu web</p>
-            </div>
-            
-            <div class="field">
-              <div class="label">👤 Nombre Completo:</div>
-              <div class="value">${nombre}</div>
-            </div>
-            
-            <div class="field">
-              <div class="label">📧 Email:</div>
-              <div class="value">${email}</div>
-            </div>
-            
-            ${empresa ? `
-            <div class="field">
-              <div class="label">🏢 Empresa:</div>
-              <div class="value">${empresa}</div>
-            </div>
-            ` : ''}
-            
-            ${telefono ? `
-            <div class="field">
-              <div class="label">📞 Teléfono:</div>
-              <div class="value">${telefono}</div>
-            </div>
-            ` : ''}
-            
-            ${servicio ? `
-            <div class="field">
-              <div class="label">🎯 Servicio de Interés:</div>
-              <div class="value">${servicio}</div>
-            </div>
-            ` : ''}
-            
-            <div class="field">
-              <div class="label">💬 Mensaje:</div>
-              <div class="value">${mensaje.replace(/\n/g, '<br>')}</div>
-            </div>
-            
-            <div class="consent">
-              <div class="label">✅ Consentimientos RGPD:</div>
-              <ul>
-                <li>Política de Privacidad: ${consentimientos.privacidad ? '✅ Aceptado' : '❌ No aceptado'}</li>
-                <li>Marketing: ${consentimientos.marketing ? '✅ Aceptado' : '❌ No aceptado'}</li>
-                <li>Cookies: ${consentimientos.cookies ? '✅ Aceptado' : '❌ No aceptado'}</li>
-              </ul>
-            </div>
-            
-            <div class="footer">
-              <p><strong>📅 Fecha:</strong> ${new Date().toLocaleString('es-ES', { 
-                timeZone: 'Europe/Madrid',
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })}</p>
-              <p><strong>🌐 IP:</strong> ${request.headers.get('x-forwarded-for') || 'No disponible'}</p>
-              <p><strong>🔗 User Agent:</strong> ${request.headers.get('user-agent') || 'No disponible'}</p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `,
-      text: `
-Nuevo Formulario de Contacto
-
-Nombre: ${nombre}
-Email: ${email}
-Empresa: ${empresa || 'No especificada'}
-Teléfono: ${telefono || 'No especificado'}
-Servicio: ${servicio || 'No especificado'}
-
-Mensaje:
-${mensaje}
-
-Consentimientos:
-- Política de Privacidad: ${consentimientos.privacidad ? 'Aceptado' : 'No aceptado'}
-- Marketing: ${consentimientos.marketing ? 'Aceptado' : 'No aceptado'}
-- Cookies: ${consentimientos.cookies ? 'Aceptado' : 'No aceptado'}
-
-Fecha: ${new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}
-      `
+      html: emailTemplate.html,
+      text: emailTemplate.text
     };
 
     // Enviar email usando nuestro servicio de PRODUCCIÓN
