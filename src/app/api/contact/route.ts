@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sendEmail, createContactEmailTemplate } from '@/lib/emailService';
+import { validateEmailConfig } from '@/lib/emailConfig';
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,6 +32,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validar configuración de email antes de procesar
+    if (!validateEmailConfig()) {
+      console.error('❌ Configuración de email inválida en API de contacto');
+      return NextResponse.json(
+        { 
+          error: 'Error de configuración del servidor. Por favor, contacta al administrador.',
+          code: 'EMAIL_CONFIG_ERROR',
+          timestamp: new Date().toISOString()
+        },
+        { status: 500 }
+      );
+    }
+
     // Crear plantilla de email usando nuestro servicio
     const emailTemplate = createContactEmailTemplate({
       nombre,
@@ -45,7 +59,7 @@ export async function POST(request: NextRequest) {
     // Preparar datos del email para Resend
     const emailData = {
       to: process.env.CONTACT_EMAIL || '',
-      from: process.env.FROM_EMAIL || '',
+      from: process.env.FROM_EMAIL || 'onboarding@resend.dev',
       subject: `🆕 Nuevo formulario de contacto - ${nombre}`,
       html: emailTemplate.html,
       text: emailTemplate.text
@@ -53,26 +67,27 @@ export async function POST(request: NextRequest) {
 
     // Enviar email usando nuestro servicio de PRODUCCIÓN
     try {
-      console.log('📧 Enviando email...');
-      const emailResult = await sendEmail(emailData);
-      console.log('✅ Email enviado exitosamente:', emailResult);
+      console.log('📧 Enviando email desde API de contacto...', {
+        environment: process.env.VERCEL_ENV || 'development',
+        timestamp: new Date().toISOString()
+      });
       
-      // Log adicional para producción
-      if (process.env.VERCEL_ENV === 'production') {
-        console.log('🚀 Email enviado en PRODUCCIÓN:', {
-          messageId: emailResult.messageId,
-          timestamp: new Date().toISOString(),
-          environment: 'production'
-        });
-      }
+      const emailResult = await sendEmail(emailData);
+      console.log('✅ Email enviado exitosamente desde API:', {
+        messageId: emailResult.messageId,
+        timestamp: new Date().toISOString(),
+        environment: process.env.VERCEL_ENV || 'development'
+      });
+      
     } catch (emailError) {
-      console.error('❌ Error enviando email:', emailError);
+      console.error('❌ Error enviando email desde API:', emailError);
       
       // En producción, fallar si el email no se envía
       if (process.env.VERCEL_ENV === 'production') {
         return NextResponse.json(
           { 
             error: 'Error enviando email. Por favor, inténtalo de nuevo más tarde.',
+            code: 'EMAIL_SEND_ERROR',
             timestamp: new Date().toISOString()
           },
           { status: 500 }
@@ -97,7 +112,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       { 
         error: 'Error interno del servidor. Por favor, inténtalo de nuevo más tarde.',
-        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
+        code: 'INTERNAL_ERROR',
+        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined,
+        timestamp: new Date().toISOString()
       },
       { status: 500 }
     );
@@ -106,12 +123,28 @@ export async function POST(request: NextRequest) {
 
 // Método GET para testing
 export async function GET() {
-  return NextResponse.json(
-    { 
-      message: 'API de contacto funcionando correctamente',
-      timestamp: new Date().toISOString(),
-      status: 'active'
-    },
-    { status: 200 }
-  );
+  try {
+    // Validar configuración en GET también
+    const configValid = validateEmailConfig();
+    
+    return NextResponse.json(
+      { 
+        message: 'API de contacto funcionando correctamente',
+        emailConfig: configValid ? '✅ Válida' : '❌ Inválida',
+        timestamp: new Date().toISOString(),
+        status: 'active',
+        environment: process.env.VERCEL_ENV || 'development'
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('❌ Error en GET de API de contacto:', error);
+    return NextResponse.json(
+      { 
+        error: 'Error en API de contacto',
+        timestamp: new Date().toISOString()
+      },
+      { status: 500 }
+    );
+  }
 }

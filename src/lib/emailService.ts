@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-import { getEmailConfig } from './emailConfig';
+import { getEmailConfig, validateEmailConfig } from './emailConfig';
 
 // Configuración de Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -16,6 +16,18 @@ interface EmailData {
 // Función para enviar email usando Resend
 export async function sendEmailWithResend(emailData: EmailData) {
   try {
+    // Validar configuración antes de enviar
+    if (!validateEmailConfig()) {
+      throw new Error('Configuración de email inválida');
+    }
+
+    console.log('📧 Enviando email con Resend...', {
+      to: emailData.to,
+      from: emailData.from,
+      subject: emailData.subject,
+      timestamp: new Date().toISOString()
+    });
+
     const { data, error } = await resend.emails.send({
       from: emailData.from,
       to: emailData.to,
@@ -29,7 +41,12 @@ export async function sendEmailWithResend(emailData: EmailData) {
       throw new Error(`Error de Resend: ${error.message}`);
     }
 
-    console.log('✅ Email enviado con Resend:', data);
+    console.log('✅ Email enviado con Resend:', {
+      messageId: data?.id,
+      timestamp: new Date().toISOString(),
+      environment: process.env.VERCEL_ENV || 'development'
+    });
+    
     return { success: true, messageId: data?.id };
   } catch (error) {
     console.error('❌ Error en sendEmailWithResend:', error);
@@ -66,7 +83,15 @@ export async function sendEmail(emailData: EmailData) {
     // En producción, SOLO usar Resend
     if (config.vercelEnv === 'production') {
       if (!config.resendApiKey) {
-        throw new Error('RESEND_API_KEY obligatoria en producción');
+        const error = 'RESEND_API_KEY obligatoria en producción. Configúrala en Vercel Dashboard.';
+        console.error('❌', error);
+        throw new Error(error);
+      }
+      
+      if (!config.contactEmail) {
+        const error = 'CONTACT_EMAIL obligatorio en producción. Configúralo en Vercel Dashboard.';
+        console.error('❌', error);
+        throw new Error(error);
       }
       
       console.log('🚀 Enviando email con Resend (PRODUCCIÓN)...');

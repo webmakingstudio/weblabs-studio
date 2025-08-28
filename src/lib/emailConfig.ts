@@ -18,7 +18,7 @@ export const EMAIL_CONFIG = {
 export function getEmailConfig() {
   const config = {
     contactEmail: process.env.CONTACT_EMAIL || '',
-    fromEmail: process.env.FROM_EMAIL || '',
+    fromEmail: process.env.FROM_EMAIL || 'onboarding@resend.dev',
     resendApiKey: process.env.RESEND_API_KEY || '',
     nodeEnv: EMAIL_CONFIG.NODE_ENV,
     vercelEnv: EMAIL_CONFIG.VERCEL_ENV,
@@ -27,9 +27,27 @@ export function getEmailConfig() {
     timeout: EMAIL_CONFIG.RESEND_CONFIG.timeout,
   };
 
+  // Logging detallado para debugging en Vercel
+  console.log('🔧 Configuración de Email:', {
+    contactEmail: config.contactEmail ? '✅ Configurado' : '❌ No configurado',
+    fromEmail: config.fromEmail,
+    resendApiKey: config.resendApiKey ? '✅ Configurado' : '❌ No configurado',
+    nodeEnv: config.nodeEnv,
+    vercelEnv: config.vercelEnv,
+    timestamp: new Date().toISOString()
+  });
+
   // Validaciones para producción
-  if (config.vercelEnv === 'production' && !config.resendApiKey) {
-    console.warn('⚠️ ADVERTENCIA: RESEND_API_KEY no configurada en producción');
+  if (config.vercelEnv === 'production') {
+    if (!config.resendApiKey) {
+      console.error('❌ ERROR CRÍTICO: RESEND_API_KEY no configurada en producción');
+      console.error('💡 Solución: Configura RESEND_API_KEY en Vercel Dashboard');
+    }
+    
+    if (!config.contactEmail) {
+      console.error('❌ ERROR CRÍTICO: CONTACT_EMAIL no configurado en producción');
+      console.error('💡 Solución: Configura CONTACT_EMAIL en Vercel Dashboard');
+    }
   }
 
   return config;
@@ -50,6 +68,12 @@ export function validateEmailConfig() {
 
   if (errors.length > 0) {
     console.error('❌ Errores en configuración de email:', errors);
+    console.error('💡 Soluciones:');
+    console.error('   1. Ve a Vercel Dashboard → Settings → Environment Variables');
+    console.error('   2. Añade RESEND_API_KEY con tu clave de Resend');
+    console.error('   3. Añade CONTACT_EMAIL con tu email');
+    console.error('   4. Añade FROM_EMAIL (puede ser onboarding@resend.dev)');
+    console.error('   5. Redeploy tu proyecto');
     return false;
   }
 
