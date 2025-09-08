@@ -1,6 +1,6 @@
-# WEBLABS STUDIO - Sitio Web Profesional
+# WebMaking Studio - Sitio Web Profesional
 
-Sitio web moderno y profesional para WEBLABS STUDIO, expertos en creación de páginas web.
+Sitio web moderno y profesional para WebMaking Studio, expertos en creación de páginas web.
 
 ## 🚀 Características
 

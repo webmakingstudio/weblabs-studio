@@ -6,19 +6,20 @@ import GoogleAnalytics from '@/components/GoogleAnalytics'
 import ConsentBanner from '@/components/ConsentBanner'
 import { Analytics } from '@vercel/analytics/react'
 import SpeedInsights from '@/components/SpeedInsights'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
-    default: 'WEBLABS STUDIO - Expertos en Creación de Páginas Web Profesionales',
-    template: '%s | WEBLABS STUDIO'
+    default: 'WebMaking Studio - Expertos en Creación de Páginas Web Profesionales',
+    template: '%s | WebMaking Studio'
   },
-  description: 'WEBLABS STUDIO - Expertos en creación de páginas web profesionales. Diseñamos sitios web modernos, rápidos y personalizados que generan resultados reales para tu empresa. SEO optimizado, diseño responsive y soporte 24/7.',
+  description: 'WebMaking Studio - Expertos en creación de páginas web profesionales. Diseñamos sitios web modernos, rápidos y personalizados que generan resultados reales para tu empresa. SEO optimizado, diseño responsive y soporte 24/7.',
   keywords: ['diseño web', 'páginas web', 'desarrollo web', 'SEO', 'marketing digital', 'empresas', 'profesional', 'responsive', 'WordPress', 'Next.js'],
-  authors: [{ name: 'WEBLABS STUDIO' }],
-  creator: 'WEBLABS STUDIO',
-  publisher: 'WEBLABS STUDIO',
+  authors: [{ name: 'WebMaking Studio' }],
+  creator: 'WebMaking Studio',
+  publisher: 'WebMaking Studio',
   formatDetection: {
     email: false,
     address: false,
@@ -36,31 +37,31 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'es_ES',
     url: 'https://webmakingstudio.com',
-    title: 'WEBLABS STUDIO - Expertos en Creación de Páginas Web Profesionales',
+    title: 'WebMaking Studio - Expertos en Creación de Páginas Web Profesionales',
     description: 'Creamos sitios web modernos, rápidos y personalizados que generan resultados reales para tu empresa. SEO optimizado y diseño responsive.',
-    siteName: 'WEBLABS STUDIO',
+    siteName: 'WebMaking Studio',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'WEBLABS STUDIO - Expertos en Desarrollo Web',
+        alt: 'WebMaking Studio - Expertos en Desarrollo Web',
       },
       {
         url: '/og-mobile.jpg',
         width: 750,
         height: 1334,
-        alt: 'WEBLABS STUDIO - Versión móvil',
+        alt: 'WebMaking Studio - Versión móvil',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WEBLABS STUDIO - Expertos en Creación de Páginas Web',
+    title: 'WebMaking Studio - Expertos en Creación de Páginas Web',
     description: 'Creamos sitios web modernos, rápidos y personalizados que generan resultados reales para tu empresa.',
     images: ['/og-image.jpg'],
-    creator: '@weblabsstudio',
-    site: '@weblabsstudio',
+    creator: '@webmakingstudio',
+    site: '@webmakingstudio',
   },
   robots: {
     index: true,
@@ -92,21 +93,23 @@ export default function RootLayout({
         <meta name="theme-color" content="#22c55e" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="WEBLABS" />
+        <meta name="apple-mobile-web-app-title" content="WebMaking" />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
-        <JsonLd />
-        <GoogleAnalytics GA_MEASUREMENT_ID="G-XXXXXXXXXX" />
-        <div className="scale-100 origin-top">
-          {children}
-        </div>
-        <ConsentBanner />
-        <Analytics />
-        <SpeedInsights />
+        <ThemeProvider>
+          <JsonLd />
+          <GoogleAnalytics GA_MEASUREMENT_ID="G-XXXXXXXXXX" />
+          <div className="scale-100 origin-top">
+            {children}
+          </div>
+          <ConsentBanner />
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -3,17 +3,12 @@
 import { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Shield, User, MessageSquare, Building } from 'lucide-react';
 import ContactForm from '@/components/ContactForm';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function Contacto() {
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [isDark]);
+  const { isDark } = useTheme();
 
   const servicios = [
     'Diseño Web Personalizado',
@@ -26,24 +21,7 @@ export default function Contacto() {
 
   return (
     <div className={`min-h-screen ${isDark ? 'dark' : ''}`}>
-      {/* Header */}
-      <header className="sticky top-0 z-50 p-4" role="banner">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-r from-zinc-100 via-zinc-300 to-zinc-100 dark:from-zinc-900 dark:via-zinc-600 dark:to-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-2xl p-2">
-            <div className="flex items-center justify-between h-10">
-              <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                  <div className="w-4 h-4 bg-white rounded-full"></div>
-                </div>
-                <h1 className="text-lg font-bold text-zinc-900 dark:text-white">WebLabs Studio</h1>
-              </div>
-              <a href="/" className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors text-sm">
-                ← Volver al inicio
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Navigation currentPage="contacto" />
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8" role="main">
@@ -146,27 +124,7 @@ export default function Contacto() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-zinc-100 dark:bg-zinc-800 border-t border-zinc-300 dark:border-zinc-700 py-4 mt-16" role="contentinfo">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-6 text-sm text-zinc-500 dark:text-zinc-400">
-              <a href="/privacidad" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Privacidad</a>
-              <a href="/terminos" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Términos</a>
-              <a href="/cookies" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Cookies</a>
-              <a href="/aviso-legal" className="hover:text-zinc-700 dark:hover:text-white transition-colors">/Aviso Legal</a>
-            </div>
-            <div className="flex flex-col items-center text-center space-y-0">
-              <span className="text-sm text-zinc-500 dark:text-zinc-400 font-mono">© WEBLABS STUDIO // 2025</span>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 font-mono">CONTACTO RGPD</p>
-            </div>
-            <div className="flex items-center space-x-2 text-sm text-zinc-500 dark:text-zinc-400">
-              <span>built for you by</span>
-              <a href="#" className="text-orange-500 underline hover:text-orange-400 transition-colors">WEBLABS</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
