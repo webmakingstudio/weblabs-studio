@@ -134,6 +134,49 @@ img {
   font-size: 0.95rem;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  background: rgba(255, 251, 246, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.lang-button {
+  min-width: 44px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.lang-button:hover,
+.lang-button:focus-visible {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.lang-button.is-active {
+  background: linear-gradient(135deg, var(--accent), #d99858);
+  color: #fffaf5;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -773,6 +816,10 @@ img {
 
   .desktop-cta {
     display: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
   }
 
   .hero {

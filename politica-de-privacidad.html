@@ -17,10 +17,15 @@
     <link rel="icon" href="assets/brand/webmakingstudios-mark.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body data-legal-page="privacy-policy">
     <div class="page-shell">
       <header class="site-header">
-        <a class="brand" href="index.html" aria-label="Ir al inicio">
+        <a
+          class="brand"
+          href="index.html"
+          aria-label="Ir al inicio"
+          data-i18n-aria-label="brandAriaLabel"
+        >
           <img
             class="brand-mark"
             src="assets/brand/webmakingstudios-mark.svg"
@@ -34,110 +39,188 @@
           </span>
         </a>
 
-        <nav class="site-nav" aria-label="Legal">
-          <a href="index.html">Inicio</a>
-          <a href="aviso-legal.html">Aviso legal</a>
-          <a href="politica-de-privacidad.html" aria-current="page">Privacidad</a>
+        <nav
+          class="site-nav"
+          aria-label="Legal"
+          data-i18n-aria-label="legalNavAriaLabel"
+        >
+          <a href="index.html" data-i18n="legalNavHome">Inicio</a>
+          <a href="aviso-legal.html" data-i18n="legalNavNotice">Aviso legal</a>
+          <a
+            href="politica-de-privacidad.html"
+            aria-current="page"
+            data-i18n="legalNavPrivacy"
+          >
+            Privacidad
+          </a>
         </nav>
 
-        <a class="button button-ghost desktop-cta" href="index.html#contacto">Contactar</a>
+        <div class="header-actions">
+          <div
+            class="lang-switch"
+            role="group"
+            aria-label="Selector de idioma"
+            data-i18n-aria-label="languageSelector"
+          >
+            <button class="lang-button is-active" type="button" data-language="es">ES</button>
+            <button class="lang-button" type="button" data-language="en">EN</button>
+          </div>
+
+          <a
+            class="button button-ghost desktop-cta"
+            href="index.html#contacto"
+            data-i18n="legalHeaderCta"
+          >
+            Contactar
+          </a>
+        </div>
       </header>
 
       <main class="legal-main">
         <section class="section legal-hero reveal is-visible">
-          <p class="eyebrow">Estructura legal mínima</p>
-          <h1>Política de privacidad</h1>
-          <p class="legal-intro">
+          <p class="eyebrow" data-i18n="legalHeroEyebrow">Estructura legal mínima</p>
+          <h1 data-i18n="privacyTitle">Política de privacidad</h1>
+          <p class="legal-intro" data-i18n="privacyIntro">
             Esta página deja preparada la estructura base para documentar cómo
             recoges y tratas los datos del formulario de contacto.
           </p>
-          <div class="legal-alert">
-            <strong>Pendiente antes de publicar:</strong>
-            revisar este texto si cambias de proveedores, incorporas analítica,
-            publicidad, newsletter o nuevos canales de captación.
-          </div>
         </section>
 
         <section class="section legal-grid">
           <article class="legal-card">
-            <h2>1. Responsable del tratamiento</h2>
+            <h2 data-i18n="privacySectionOneTitle">1. Responsable del tratamiento</h2>
             <ul class="legal-list">
-              <li>Nombre o razón social: Alex Gutierrez Navau</li>
-              <li>NIF/CIF: 48169585H</li>
-              <li>Domicilio profesional: Carrer de Can Rovira, 10408186 Can Falguera, Barcelona</li>
-              <li>Email de contacto para privacidad: webmakingstudios@gmail.com</li>
+              <li data-i18n="privacySectionOneItemOne">
+                Nombre o razón social: Alex Gutierrez Navau
+              </li>
+              <li data-i18n="privacySectionOneItemTwo">NIF/CIF: 48169585H</li>
+              <li data-i18n="privacySectionOneItemThree">
+                Domicilio profesional: Carrer de Can Rovira, 104, 08186 Can Falguera,
+                Barcelona
+              </li>
+              <li data-i18n="privacySectionOneItemFour">
+                Email de contacto para privacidad: webmakingstudios@gmail.com
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>2. Qué datos recoges</h2>
+            <h2 data-i18n="privacySectionTwoTitle">2. Qué datos recoges</h2>
             <ul class="legal-list">
-              <li>Nombre</li>
-              <li>Email de contacto</li>
-              <li>Negocio o marca</li>
-              <li>Tipo de servicio solicitado</li>
-              <li>Mensaje enviado por la persona usuaria</li>
-              <li>Otros datos que el usuario facilite voluntariamente</li>
+              <li data-i18n="privacySectionTwoItemOne">Nombre</li>
+              <li data-i18n="privacySectionTwoItemTwo">Email de contacto</li>
+              <li data-i18n="privacySectionTwoItemThree">Negocio o marca</li>
+              <li data-i18n="privacySectionTwoItemFour">Tipo de servicio solicitado</li>
+              <li data-i18n="privacySectionTwoItemFive">
+                Mensaje enviado por la persona usuaria
+              </li>
+              <li data-i18n="privacySectionTwoItemSix">
+                Otros datos que el usuario facilite voluntariamente
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>3. Finalidad del tratamiento</h2>
+            <h2 data-i18n="privacySectionThreeTitle">3. Finalidad del tratamiento</h2>
             <ul class="legal-list">
-              <li>Responder consultas recibidas desde la web.</li>
-              <li>Preparar presupuestos o propuestas comerciales solicitadas.</li>
-              <li>Gestionar comunicaciones relacionadas con el servicio solicitado.</li>
-              <li>Añadir una finalidad comercial extra solo si realmente la vas a usar.</li>
+              <li data-i18n="privacySectionThreeItemOne">
+                Responder consultas recibidas desde la web.
+              </li>
+              <li data-i18n="privacySectionThreeItemTwo">
+                Preparar presupuestos o propuestas comerciales solicitadas.
+              </li>
+              <li data-i18n="privacySectionThreeItemThree">
+                Gestionar comunicaciones relacionadas con el servicio solicitado.
+              </li>
+              <li data-i18n="privacySectionThreeItemFour">
+                Añadir una finalidad comercial extra solo si realmente la vas a usar.
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>4. Base jurídica</h2>
+            <h2 data-i18n="privacySectionFourTitle">4. Base jurídica</h2>
             <ul class="legal-list">
-              <li>Solicitud de información realizada por la persona usuaria.</li>
-              <li>Medidas precontractuales si se pide presupuesto.</li>
-              <li>Consentimiento, solo si incorporas una finalidad adicional de marketing.</li>
+              <li data-i18n="privacySectionFourItemOne">
+                Solicitud de información realizada por la persona usuaria.
+              </li>
+              <li data-i18n="privacySectionFourItemTwo">
+                Medidas precontractuales si se pide presupuesto.
+              </li>
+              <li data-i18n="privacySectionFourItemThree">
+                Consentimiento, solo si incorporas una finalidad adicional de marketing.
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>5. Conservación de los datos</h2>
+            <h2 data-i18n="privacySectionFiveTitle">5. Conservación de los datos</h2>
             <ul class="legal-list">
-              <li>Los datos enviados a través del formulario o por email se conservarán durante el tiempo necesario para atender la solicitud y hacer seguimiento de la misma.</li>
-              <li>Si no se formaliza una relación comercial, los datos podrán conservarse durante un máximo de 12 meses desde la última comunicación.</li>
-              <li>Si se formaliza una relación comercial o contractual, los datos se conservarán durante los plazos legales, fiscales y administrativos que resulten aplicables.</li>
+              <li data-i18n="privacySectionFiveItemOne">
+                Los datos enviados a través del formulario o por email se conservarán
+                durante el tiempo necesario para atender la solicitud y hacer
+                seguimiento de la misma.
+              </li>
+              <li data-i18n="privacySectionFiveItemTwo">
+                Si no se formaliza una relación comercial, los datos podrán
+                conservarse durante un máximo de 12 meses desde la última
+                comunicación.
+              </li>
+              <li data-i18n="privacySectionFiveItemThree">
+                Si se formaliza una relación comercial o contractual, los datos se
+                conservarán durante los plazos legales, fiscales y administrativos que
+                resulten aplicables.
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>6. Destinatarios y proveedores</h2>
+            <h2 data-i18n="privacySectionSixTitle">6. Destinatarios y proveedores</h2>
             <ul class="legal-list">
-              <li>Hosting del sitio web: Vercel Inc.</li>
-              <li>Proveedor de envío transaccional del formulario: Resend</li>
-              <li>Proveedor de correo electrónico de recepción: Google (Gmail)</li>
-              <li>Otros proveedores vinculados al funcionamiento del sitio: Google Fonts y, en caso de contacto por mensajería, WhatsApp.</li>
-              <li>El uso de estos proveedores puede implicar transferencias internacionales de datos. En su caso, dichas transferencias se ampararán en los mecanismos y garantías previstos por la normativa aplicable.</li>
+              <li data-i18n="privacySectionSixItemOne">Hosting del sitio web: Vercel Inc.</li>
+              <li data-i18n="privacySectionSixItemTwo">
+                Proveedor de envío transaccional del formulario: Resend
+              </li>
+              <li data-i18n="privacySectionSixItemThree">
+                Proveedor de correo electrónico de recepción: Google (Gmail)
+              </li>
+              <li data-i18n="privacySectionSixItemFour">
+                Otros proveedores vinculados al funcionamiento del sitio: Google Fonts y,
+                en caso de contacto por mensajería, WhatsApp.
+              </li>
+              <li data-i18n="privacySectionSixItemFive">
+                El uso de estos proveedores puede implicar transferencias
+                internacionales de datos. En su caso, dichas transferencias se
+                ampararán en los mecanismos y garantías previstos por la normativa
+                aplicable.
+              </li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>7. Derechos de las personas usuarias</h2>
+            <h2 data-i18n="privacySectionSevenTitle">7. Derechos de las personas usuarias</h2>
             <ul class="legal-list">
-              <li>Acceso</li>
-              <li>Rectificación</li>
-              <li>Supresión</li>
-              <li>Oposición</li>
-              <li>Limitación del tratamiento</li>
-              <li>Portabilidad, cuando proceda</li>
+              <li data-i18n="privacySectionSevenItemOne">Acceso</li>
+              <li data-i18n="privacySectionSevenItemTwo">Rectificación</li>
+              <li data-i18n="privacySectionSevenItemThree">Supresión</li>
+              <li data-i18n="privacySectionSevenItemFour">Oposición</li>
+              <li data-i18n="privacySectionSevenItemFive">Limitación del tratamiento</li>
+              <li data-i18n="privacySectionSevenItemSix">Portabilidad, cuando proceda</li>
             </ul>
           </article>
 
           <article class="legal-card">
-            <h2>8. Seguridad y cambios</h2>
+            <h2 data-i18n="privacySectionEightTitle">8. Seguridad y cambios</h2>
             <ul class="legal-list">
-              <li>Indicar que aplicas medidas razonables de seguridad.</li>
-              <li>Actualizar esta política cuando cambien tratamientos o proveedores.</li>
-              <li>Revisar si debes mencionar Google Fonts u otros terceros embebidos.</li>
+              <li data-i18n="privacySectionEightItemOne">
+                Indicar que aplicas medidas razonables de seguridad.
+              </li>
+              <li data-i18n="privacySectionEightItemTwo">
+                Actualizar esta política cuando cambien tratamientos o proveedores.
+              </li>
+              <li data-i18n="privacySectionEightItemThree">
+                Revisar si debes mencionar Google Fonts u otros terceros embebidos.
+              </li>
             </ul>
           </article>
         </section>
@@ -145,7 +228,12 @@
 
       <footer class="site-footer">
         <div class="footer-copy">
-          <a class="brand footer-brand" href="index.html" aria-label="Ir al inicio">
+          <a
+            class="brand footer-brand"
+            href="index.html"
+            aria-label="Ir al inicio"
+            data-i18n-aria-label="brandAriaLabel"
+          >
             <img
               class="brand-mark"
               src="assets/brand/webmakingstudios-mark.svg"
@@ -158,15 +246,17 @@
               <span class="brand-text-script">Studios</span>
             </span>
           </a>
-          <p class="footer-note">
+          <p class="footer-note" data-i18n="privacyFooterNote">
             Plantilla de política de privacidad pendiente de completar antes de publicar.
           </p>
         </div>
         <div class="footer-links">
-          <a href="index.html">Inicio</a>
-          <a href="aviso-legal.html">Aviso legal</a>
+          <a href="index.html" data-i18n="legalFooterHome">Inicio</a>
+          <a href="aviso-legal.html" data-i18n="legalFooterNotice">Aviso legal</a>
         </div>
       </footer>
     </div>
+
+    <script src="legal.js"></script>
   </body>
 </html>

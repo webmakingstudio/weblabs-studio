@@ -22,12 +22,20 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function buildEmailMarkup({ nombre, email, negocio, servicio, mensaje }) {
+function buildEmailMarkup({
+  nombre,
+  email,
+  negocio,
+  servicio,
+  mensaje,
+  language,
+}) {
   const items = [
     ["Nombre", nombre],
     ["Email", email],
     ["Negocio o marca", negocio],
     ["Servicio", servicio],
+    ["Idioma del formulario", language === "en" ? "English" : "Español"],
   ];
 
   const listMarkup = items
@@ -59,7 +67,14 @@ function buildEmailMarkup({ nombre, email, negocio, servicio, mensaje }) {
   `;
 }
 
-function buildPlainText({ nombre, email, negocio, servicio, mensaje }) {
+function buildPlainText({
+  nombre,
+  email,
+  negocio,
+  servicio,
+  mensaje,
+  language,
+}) {
   return [
     "Nueva solicitud desde WebMakingStudios",
     "",
@@ -67,6 +82,7 @@ function buildPlainText({ nombre, email, negocio, servicio, mensaje }) {
     `Email: ${email}`,
     `Negocio o marca: ${negocio}`,
     `Servicio: ${servicio}`,
+    `Idioma del formulario: ${language === "en" ? "English" : "Español"}`,
     "",
     "Detalles del proyecto:",
     mensaje,
@@ -105,6 +121,7 @@ export async function POST(request) {
     const servicio = normalizeField(payload.servicio);
     const mensaje = normalizeField(payload.mensaje);
     const website = normalizeField(payload.website);
+    const language = normalizeField(payload.language) === "en" ? "en" : "es";
 
     if (website) {
       return jsonResponse({ ok: true }, 200);
@@ -135,8 +152,22 @@ export async function POST(request) {
         to: [destinationEmail],
         subject: `Nueva solicitud de ${nombre} desde WebMakingStudios`,
         reply_to: email,
-        html: buildEmailMarkup({ nombre, email, negocio, servicio, mensaje }),
-        text: buildPlainText({ nombre, email, negocio, servicio, mensaje }),
+        html: buildEmailMarkup({
+          nombre,
+          email,
+          negocio,
+          servicio,
+          mensaje,
+          language,
+        }),
+        text: buildPlainText({
+          nombre,
+          email,
+          negocio,
+          servicio,
+          mensaje,
+          language,
+        }),
       }),
     });
 
