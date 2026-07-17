@@ -10,54 +10,54 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- Home -->
   <url>
-    <loc>https://webmakingstudios.com/</loc>
+    <loc>https://webmakingstudio.com/</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudios.com/?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudios.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/?lang=es" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/" />
   </url>
   <!-- Recursos / Guías -->
   <url>
-    <loc>https://webmakingstudios.com/#recursos</loc>
+    <loc>https://webmakingstudio.com/#recursos</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudios.com/?lang=es#recursos" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudios.com/?lang=en#recursos" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/#recursos" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/?lang=es#recursos" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/?lang=en#recursos" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/#recursos" />
   </url>
   <!-- Aviso legal -->
   <url>
-    <loc>https://webmakingstudios.com/aviso-legal.html</loc>
+    <loc>https://webmakingstudio.com/aviso-legal.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudios.com/aviso-legal.html?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudios.com/aviso-legal.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/aviso-legal.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/aviso-legal.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/aviso-legal.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/aviso-legal.html" />
   </url>
   <!-- Política de privacidad -->
   <url>
-    <loc>https://webmakingstudios.com/politica-de-privacidad.html</loc>
+    <loc>https://webmakingstudio.com/politica-de-privacidad.html</loc>
     <lastmod>2026-07-06</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudios.com/politica-de-privacidad.html?lang=es" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudios.com/politica-de-privacidad.html?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/politica-de-privacidad.html" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/politica-de-privacidad.html?lang=es" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/politica-de-privacidad.html?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/politica-de-privacidad.html" />
   </url>
   <!-- Landing pages: clínicas dentales -->
   <url>
-    <loc>https://webmakingstudios.com/landing-pages-clinicas-dentales.html</loc>
+    <loc>https://webmakingstudio.com/landing-pages-clinicas-dentales.html</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <!-- Landing pages: clínicas de medicina estética -->
   <url>
-    <loc>https://webmakingstudios.com/landing-pages-clinicas-estetica.html</loc>
+    <loc>https://webmakingstudio.com/landing-pages-clinicas-estetica.html</loc>
     <lastmod>2026-07-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
