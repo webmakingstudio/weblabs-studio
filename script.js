@@ -6,21 +6,22 @@ const contactConfig = {
 
 const translations = {
   es: {
-    metaTitle: "WebMakingStudios | Landing pages para captar clientes",
+    metaTitle: "WebMakingStudios | Landing pages para negocios, autónomos y marcas",
     metaDescription:
-      "Diseñamos y desarrollamos landing pages premium para negocios que quieren captar más contactos, transmitir valor y convertir mejor.",
+      "Landing pages que convierten visitas en clientes. Diseño web profesional en Barcelona para autónomos y negocios. Pide presupuesto sin compromiso.",
     brandAriaLabel: "Ir al inicio",
     navAriaLabel: "Principal",
     languageSelector: "Selector de idioma",
     navServices: "Servicios",
     navProcess: "Proceso",
+    navRecursos: "Recursos",
     navContact: "Contacto",
     headerCta: "Pedir presupuesto",
-    heroEyebrow: "Diseño y desarrollo de landing pages",
+    heroEyebrow: "Diseño web y landing pages en Barcelona",
     heroTitle:
       'Creamos páginas que convierten <span>visitas en clientes.</span>',
     heroText:
-      "En WebMakingStudios diseñamos landing pages modernas, rápidas y orientadas a conversión para negocios que necesitan captar leads, presentar mejor su oferta y generar más oportunidades reales.",
+      "En WebMakingStudios diseñamos landing pages modernas, rápidas y orientadas a conversión para autónomos, negocios locales y marcas que necesitan captar leads, presentar mejor su oferta y generar más oportunidades reales.",
     heroPrimaryCta: "Solicitar presupuesto",
     heroSecondaryCta: "Ver lo que incluye",
     heroPointOne: "Entrega rápida",
@@ -37,7 +38,7 @@ const translations = {
     previewMetricThreeValue: "100%",
     previewMetricThreeLabel: "adaptada a móvil",
     introBandText:
-      "Creamos páginas enfocadas en conversión para marcas que quieren verse profesionales, comunicar mejor su valor y transformar tráfico en contactos, reservas o ventas.",
+      "Creamos páginas enfocadas en conversión para marcas y autónomos que quieren verse profesionales, comunicar mejor su valor y transformar tráfico en contactos, reservas o ventas.",
     servicesEyebrow: "Qué podemos hacer por ti",
     servicesTitle: "Servicios orientados a negocio, no solo a diseño bonito.",
     serviceOneLabel: "Oferta principal",
@@ -76,7 +77,7 @@ const translations = {
     processThreeText:
       "Entregamos una landing lista para captar tráfico, recibir contactos y seguir mejorando lo esencial con soporte inicial.",
     audienceEyebrow: "Para quién encaja bien",
-    audienceTitle: "Negocios que necesitan verse profesionales y generar respuesta.",
+    audienceTitle: "Negocios, autónomos y marcas que necesitan verse profesionales y generar respuesta.",
     audienceTagOne: "Negocios locales",
     audienceTagTwo: "Coaches",
     audienceTagThree: "Dentistas",
@@ -134,9 +135,21 @@ const translations = {
     formNote:
       'Si lo prefieres, puedes escribirnos directamente por WhatsApp y contarnos tu idea en pocas líneas. También puedes consultar el <a href="aviso-legal.html">aviso legal</a>.',
     footerNote:
-      "Landing pages modernas para captar contactos, vender mejor y elevar tu marca.",
+      "Landing pages y diseño web en Barcelona para autónomos, negocios y marcas que quieren captar más clientes.",
     footerLegalLink: "Aviso legal",
     footerPrivacyLink: "Política de privacidad",
+    recursosEyebrow: "Guías y recursos",
+    recursosTitle: "Aprende cómo mejorar tu presencia online y captar más clientes",
+    recursoOneTitle: "Cómo elegir una landing page para tu negocio",
+    recursoOneText:
+      "Guía práctica para decidir qué tipo de landing necesitas según tu sector, objetivo y presupuesto.",
+    recursoTwoTitle: "5 claves de diseño web que disparan la conversión",
+    recursoTwoText:
+      "Velocidad, jerarquía visual, copy y CTA: lo que realmente hace que una página convierta visitas en clientes.",
+    recursoThreeTitle: "Diseño web en Barcelona: guía para autónomos",
+    recursoThreeText:
+      "Por qué el SEO local importa y cómo posicionar tu negocio en búsquedas de tu ciudad.",
+    recursosCta: "Leer más",
     whatsappHeroPrompt:
       "Hola WebMakingStudios, quiero pedir presupuesto para mi landing.",
     whatsappGreeting: "Hola WebMakingStudios,",
@@ -148,20 +161,21 @@ const translations = {
     fieldDetails: "Detalles",
   },
   en: {
-    metaTitle: "WebMakingStudios | Landing pages to win more clients",
+    metaTitle: "WebMakingStudios | Landing pages for businesses, freelancers and brands",
     metaDescription:
-      "We design and build premium landing pages for businesses that want to generate more leads, communicate value and convert better.",
+      "Landing pages that turn visitors into clients. Professional web design in Barcelona for businesses and freelancers. Request your free quote today.",
     brandAriaLabel: "Go to homepage",
     navAriaLabel: "Primary",
     languageSelector: "Language selector",
     navServices: "Services",
     navProcess: "Process",
+    navRecursos: "Resources",
     navContact: "Contact",
     headerCta: "Request a quote",
-    heroEyebrow: "Landing page design and development",
+    heroEyebrow: "Web design and landing pages in Barcelona",
     heroTitle: "We build pages that turn <span>visits into clients.</span>",
     heroText:
-      "At WebMakingStudios, we design modern, fast, conversion-focused landing pages for businesses that need more leads, a clearer offer and more real opportunities.",
+      "At WebMakingStudios, we design modern, fast, conversion-focused landing pages for freelancers, local businesses and brands that need more leads, a clearer offer and more real opportunities.",
     heroPrimaryCta: "Request a quote",
     heroSecondaryCta: "See what is included",
     heroPointOne: "Fast delivery",
@@ -178,7 +192,7 @@ const translations = {
     previewMetricThreeValue: "100%",
     previewMetricThreeLabel: "mobile-ready",
     introBandText:
-      "We build conversion-focused pages for brands that want to look professional, communicate their value better and turn traffic into leads, bookings or sales.",
+      "We build conversion-focused pages for brands and freelancers that want to look professional, communicate their value better and turn traffic into leads, bookings or sales.",
     servicesEyebrow: "What we can do for you",
     servicesTitle: "Business-focused services, not just pretty design.",
     serviceOneLabel: "Main offer",
@@ -217,7 +231,7 @@ const translations = {
     processThreeText:
       "We deliver a landing page ready to attract traffic, receive enquiries and keep improving the essentials with initial support.",
     audienceEyebrow: "Who this works for",
-    audienceTitle: "Businesses that need to look professional and generate response.",
+    audienceTitle: "Businesses, freelancers and brands that need to look professional and generate response.",
     audienceTagOne: "Local businesses",
     audienceTagTwo: "Coaches",
     audienceTagThree: "Dentists",
@@ -275,9 +289,21 @@ const translations = {
     formNote:
       'If you prefer, you can message us directly on WhatsApp and tell us about your idea in a few lines. You can also check the <a href="aviso-legal.html">legal notice</a>.',
     footerNote:
-      "Modern landing pages to capture leads, sell better and elevate your brand.",
+      "Landing pages and web design in Barcelona for freelancers, businesses and brands that want to win more clients.",
     footerLegalLink: "Legal notice",
     footerPrivacyLink: "Privacy policy",
+    recursosEyebrow: "Guides and resources",
+    recursosTitle: "Learn how to improve your online presence and win more clients",
+    recursoOneTitle: "How to choose a landing page for your business",
+    recursoOneText:
+      "A practical guide to decide which type of landing page you need based on your sector, goal and budget.",
+    recursoTwoTitle: "5 web design principles that boost conversion",
+    recursoTwoText:
+      "Speed, visual hierarchy, copy and CTAs: what really makes a landing page convert visitors into clients.",
+    recursoThreeTitle: "Web design in Barcelona: a guide for freelancers",
+    recursoThreeText:
+      "Why local SEO matters and how to position your business in local search results.",
+    recursosCta: "Read more",
     whatsappHeroPrompt:
       "Hi WebMakingStudios, I would like to request a quote for my landing page.",
     whatsappGreeting: "Hi WebMakingStudios,",
@@ -290,49 +316,10 @@ const translations = {
   },
 };
 
-const revealElements = document.querySelectorAll(".reveal");
-const form = document.querySelector("#lead-form");
-const whatsappButton = document.querySelector("#send-whatsapp");
-const submitButton = document.querySelector("#submit-request");
-const formStatus = document.querySelector("#form-status");
+// ── DOM queries (must precede i18n.init — updateContactLinks uses them) ─
 const emailLink = document.querySelector("#contact-email-link");
 const whatsappLink = document.querySelector("#contact-whatsapp-link");
 const heroWhatsappLink = document.querySelector("#hero-whatsapp-link");
-const languageButtons = document.querySelectorAll("[data-language]");
-const textNodes = document.querySelectorAll("[data-i18n]");
-const htmlNodes = document.querySelectorAll("[data-i18n-html]");
-const placeholderNodes = document.querySelectorAll("[data-i18n-placeholder]");
-const ariaNodes = document.querySelectorAll("[data-i18n-aria-label]");
-const metaDescription = document.querySelector('meta[name="description"]');
-
-function getStoredLanguage() {
-  try {
-    const storedLanguage = window.localStorage.getItem("wms-language");
-    return translations[storedLanguage] ? storedLanguage : null;
-  } catch {
-    return null;
-  }
-}
-
-let currentLanguage = getStoredLanguage() || "es";
-
-function t(key) {
-  return translations[currentLanguage]?.[key] ?? translations.es[key] ?? "";
-}
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.15 }
-);
-
-revealElements.forEach((element) => observer.observe(element));
 
 function updateContactLinks() {
   if (emailLink) {
@@ -347,53 +334,42 @@ function updateContactLinks() {
 
   if (heroWhatsappLink) {
     heroWhatsappLink.href = `https://wa.me/${contactConfig.whatsappNumber}?text=${encodeURIComponent(
-      t("whatsappHeroPrompt")
+      i18n.t("whatsappHeroPrompt")
     )}`;
   }
 }
 
-function applyLanguage(language) {
-  currentLanguage = translations[language] ? language : "es";
+// ── Shared i18n engine (from i18n.js) ──────────────────────────────
+const i18n = createI18n({
+  translations,
+  onLanguageChange: updateContactLinks,
+});
 
-  document.documentElement.lang = currentLanguage;
-  document.title = t("metaTitle");
+i18n.init();
 
-  if (metaDescription) {
-    metaDescription.setAttribute("content", t("metaDescription"));
-  }
+const { t } = i18n;
 
-  textNodes.forEach((node) => {
-    node.textContent = t(node.dataset.i18n);
-  });
+// ── Scroll reveal ──────────────────────────────────────────────────
+const revealElements = document.querySelectorAll(".reveal");
+const observer = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
 
-  htmlNodes.forEach((node) => {
-    node.innerHTML = t(node.dataset.i18nHtml);
-  });
+revealElements.forEach((element) => observer.observe(element));
 
-  placeholderNodes.forEach((node) => {
-    node.setAttribute("placeholder", t(node.dataset.i18nPlaceholder));
-  });
-
-  ariaNodes.forEach((node) => {
-    node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel));
-  });
-
-  languageButtons.forEach((button) => {
-    button.classList.toggle("is-active", button.dataset.language === currentLanguage);
-  });
-
-  if (submitButton && !submitButton.disabled) {
-    submitButton.textContent = t("formSubmitButton");
-  }
-
-  updateContactLinks();
-
-  try {
-    window.localStorage.setItem("wms-language", currentLanguage);
-  } catch {
-    // Ignore storage issues and keep the current session language only.
-  }
-}
+// ── Form handling ──────────────────────────────────────────────────
+const form = document.querySelector("#lead-form");
+const whatsappButton = document.querySelector("#send-whatsapp");
+const submitButton = document.querySelector("#submit-request");
+const formStatus = document.querySelector("#form-status");
 
 function buildMessage(formData) {
   const name = formData.get("nombre");
@@ -418,10 +394,7 @@ function buildMessage(formData) {
 }
 
 function setFormStatus(type, message) {
-  if (!formStatus) {
-    return;
-  }
-
+  if (!formStatus) return;
   formStatus.textContent = message;
   formStatus.dataset.state = type;
 }
@@ -433,27 +406,16 @@ function setSubmittingState(isSubmitting) {
       ? t("formSubmitting")
       : t("formSubmitButton");
   }
-
   if (whatsappButton) {
     whatsappButton.disabled = isSubmitting;
   }
 }
 
-languageButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    applyLanguage(button.dataset.language);
-  });
-});
-
-applyLanguage(currentLanguage);
-
 if (form) {
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    if (!form.reportValidity()) {
-      return;
-    }
+    if (!form.reportValidity()) return;
 
     setSubmittingState(true);
     setFormStatus("idle", "");
@@ -466,15 +428,13 @@ if (form) {
       servicio: formData.get("servicio"),
       mensaje: formData.get("mensaje"),
       website: formData.get("website"),
-      language: currentLanguage,
+      language: i18n.currentLanguage,
     };
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
@@ -494,9 +454,7 @@ if (form) {
 
 if (whatsappButton && form) {
   whatsappButton.addEventListener("click", () => {
-    if (!form.reportValidity()) {
-      return;
-    }
+    if (!form.reportValidity()) return;
 
     const formData = new FormData(form);
     const message = encodeURIComponent(buildMessage(formData));

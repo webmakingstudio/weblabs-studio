@@ -1,5 +1,104 @@
 const MAX_FIELD_LENGTH = 2000;
 
+// ── Rate limiting ──────────────────────────────────────────────────
+// Simple in-memory sliding-window rate limiter.  Tied to the function
+// instance so it resets on cold starts, but it prevents bursts from a
+// single IP within a given window.
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const RATE_LIMIT_MAX_REQUESTS = 5; // max requests per IP per window
+const rateLimitStore = new Map();
+
+function getClientIP(request) {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) {
+    // The leftmost IP is the original client (Vercel proxies append).
+    return forwarded.split(",")[0].trim();
+  }
+  const realIP = request.headers.get("x-real-ip");
+  return realIP || "unknown";
+}
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const windowStart = now - RATE_LIMIT_WINDOW_MS;
+
+  let timestamps = rateLimitStore.get(ip);
+  if (!timestamps) {
+    timestamps = [];
+    rateLimitStore.set(ip, timestamps);
+  }
+
+  // Purge expired entries for this IP.
+  const recent = timestamps.filter((ts) => ts > windowStart);
+  rateLimitStore.set(ip, recent);
+
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    return false;
+  }
+
+  recent.push(now);
+  return true;
+}
+
+// Periodic cleanup to prevent memory leaks (runs max once per 10 min).
+let lastCleanup = 0;
+function cleanupRateLimitStore() {
+  const now = Date.now();
+  if (now - lastCleanup < 10 * 60 * 1000) return;
+  lastCleanup = now;
+
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  for (const [ip, timestamps] of rateLimitStore.entries()) {
+    const recent = timestamps.filter((ts) => ts > cutoff);
+    if (recent.length === 0) {
+      rateLimitStore.delete(ip);
+    } else {
+      rateLimitStore.set(ip, recent);
+    }
+  }
+}
+
+// ── Validation ─────────────────────────────────────────────────────
+
+/**
+ * Robust email validation:
+ * - Must match a standard email pattern.
+ * - Max 254 chars (RFC 5321 limit).
+ * - Disallow common disposable / role-based patterns we know are risky.
+ */
+const EMAIL_RE =
+  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+
+const DISPOSABLE_DOMAINS = new Set([
+  "mailinator.com",
+  "guerrillamail.com",
+  "10minutemail.com",
+  "tempmail.com",
+  "yopmail.com",
+  "throwaway.email",
+  "sharklasers.com",
+  "trashmail.com",
+  "temp-mail.org",
+  "fakeinbox.com",
+]);
+
+function validateEmail(email) {
+  if (!email || typeof email !== "string") return false;
+  if (email.length > 254) return false;
+
+  const normalized = email.trim().toLowerCase();
+
+  if (!EMAIL_RE.test(normalized)) return false;
+
+  const domain = normalized.split("@")[1];
+  if (!domain) return false;
+  if (DISPOSABLE_DOMAINS.has(domain)) return false;
+
+  return true;
+}
+
+// ── Helpers ─────────────────────────────────────────────────────────
+
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -89,8 +188,25 @@ function buildPlainText({
   ].join("\n");
 }
 
+// ── Handler ─────────────────────────────────────────────────────────
+
 export async function POST(request) {
   try {
+    // ── Rate limit check ──────────────────────────────────────────
+    const clientIP = getClientIP(request);
+    cleanupRateLimitStore();
+
+    if (!checkRateLimit(clientIP)) {
+      return jsonResponse(
+        {
+          error:
+            "Has enviado demasiadas solicitudes. Espera unos minutos y vuelve a intentarlo.",
+        },
+        429
+      );
+    }
+
+    // ── Config ─────────────────────────────────────────────────────
     const resendApiKey = process.env.RESEND_API_KEY;
     const destinationEmail =
       process.env.CONTACT_TO_EMAIL || "webmakingstudios@gmail.com";
@@ -123,16 +239,24 @@ export async function POST(request) {
     const website = normalizeField(payload.website);
     const language = normalizeField(payload.language) === "en" ? "en" : "es";
 
+    // ── Honeypot ───────────────────────────────────────────────────
     if (website) {
+      // Silent rejection for bots — don't leak whether it succeeded.
       return jsonResponse({ ok: true }, 200);
     }
 
+    // ── Required fields ────────────────────────────────────────────
     if (!nombre || !email || !negocio || !servicio || !mensaje) {
       return jsonResponse({ error: "Completa todos los campos obligatorios." }, 400);
     }
 
+    // ── Email validation ───────────────────────────────────────────
+    if (!validateEmail(email)) {
+      return jsonResponse({ error: "El email no tiene un formato válido." }, 400);
+    }
+
+    // ── Field length validation ────────────────────────────────────
     if (
-      !email.includes("@") ||
       [nombre, email, negocio, servicio, mensaje].some(
         (field) => field.length > MAX_FIELD_LENGTH
       )
@@ -140,6 +264,7 @@ export async function POST(request) {
       return jsonResponse({ error: "Revisa los datos del formulario." }, 400);
     }
 
+    // ── Send via Resend ────────────────────────────────────────────
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {

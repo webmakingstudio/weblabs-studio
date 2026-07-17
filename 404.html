@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Página no encontrada | WebMakingStudios</title>
+  <meta name="description" content="La página que buscas no existe." />
+  <meta name="robots" content="noindex" />
+  <!-- Preload: fuentes autohospedadas -->
+  <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="assets/brand/webmakingstudios-mark.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .error-section {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+    }
+    .error-code {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(5rem, 15vw, 12rem);
+      font-style: italic;
+      color: var(--accent-strong);
+      line-height: 1;
+      margin: 0 0 16px;
+    }
+    .error-section h1 {
+      margin: 0 0 12px;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      letter-spacing: -0.04em;
+    }
+    .error-section p {
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin: 0 0 32px;
+    }
+    .error-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+<div class="page-shell">
+  <main class="error-section">
+    <span class="error-code" aria-hidden="true">404</span>
+    <h1>Página no encontrada</h1>
+    <p>
+      La página que buscas no existe o ha sido movida. Puedes volver al inicio
+      o escribirnos si crees que debería estar aquí.
+    </p>
+    <div class="error-links">
+      <a class="button" href="/">Volver al inicio</a>
+      <a class="button button-ghost" href="/#contacto">Pedir presupuesto</a>
+    </div>
+  </main>
+</div>
+</body>
+</html>

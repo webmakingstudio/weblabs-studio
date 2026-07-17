@@ -1,24 +1,137 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-i18n-title="metaTitle" data-i18n-meta-description="metaDescription">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WebMakingStudios | Landing pages para captar clientes</title>
+
+    <!-- Tema: evita flash al cargar (antes de que pinte nada) -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('wms-theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+    <title>WebMakingStudios | Landing pages para negocios, autónomos y marcas</title>
     <meta
       name="description"
-      content="Diseñamos y desarrollamos landing pages premium para negocios que quieren captar más contactos, transmitir valor y convertir mejor."
+      content="Landing pages que convierten visitas en clientes. Diseño web profesional en Barcelona para autónomos y negocios. Pide presupuesto sin compromiso."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Preload: fuentes autohospedadas + logo crítico -->
+    <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/brand/webmakingstudios-mark.svg" as="image" />
     <link rel="icon" href="assets/brand/webmakingstudios-mark.svg" type="image/svg+xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="WebMakingStudios | Landing pages para captar clientes" />
+    <meta property="og:description" content="Diseñamos y desarrollamos landing pages premium para negocios que quieren captar más contactos, transmitir valor y convertir mejor." />
+    <meta property="og:url" content="https://webmakingstudios.com" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WebMakingStudios | Landing pages para negocios, autónomos y marcas" />
+    <meta name="twitter:description" content="Landing pages que convierten visitas en clientes. Diseño web profesional en Barcelona para autónomos y negocios. Pide presupuesto sin compromiso." />
+    <meta name="twitter:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+
+    <!-- SEO: canonical + hreflang -->
+    <link rel="canonical" href="https://webmakingstudios.com/" />
+    <link rel="alternate" hreflang="es" href="https://webmakingstudios.com/?lang=es" />
+    <link rel="alternate" hreflang="en" href="https://webmakingstudios.com/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/" />
+
+    <!-- Structured data: Organization + WebSite + BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WebMakingStudios",
+      "url": "https://webmakingstudios.com",
+      "logo": "https://webmakingstudios.com/assets/brand/webmakingstudios-lockup.svg",
+      "email": "webmakingstudios@gmail.com",
+      "telephone": "+34665603259",
+      "description": "Diseño y desarrollo de landing pages premium para negocios que quieren captar más contactos, transmitir valor y convertir mejor.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Barcelona",
+        "addressCountry": "ES"
+      },
+      "sameAs": []
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://webmakingstudios.com",
+      "name": "WebMakingStudios",
+      "inLanguage": ["es", "en"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://webmakingstudios.com/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "WebMakingStudios",
+      "url": "https://webmakingstudios.com",
+      "logo": "https://webmakingstudios.com/assets/brand/webmakingstudios-mark.svg",
+      "image": "https://webmakingstudios.com/assets/brand/og-image.png",
+      "email": "webmakingstudios@gmail.com",
+      "telephone": "+34665603259",
+      "description": "Diseño y desarrollo de landing pages premium para autónomos, negocios locales y marcas que quieren captar más contactos, transmitir valor y convertir mejor.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Carrer de Can Rovira, 104",
+        "addressLocality": "Barcelona",
+        "addressRegion": "Barcelona",
+        "postalCode": "08186",
+        "addressCountry": "ES"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 41.6478,
+        "longitude": 2.1714
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": 41.6478,
+          "longitude": 2.1714
+        },
+        "geoRadius": "30000"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      },
+      "priceRange": "€€",
+      "sameAs": []
+    }
+    </script>
+
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+    <!-- Vercel Analytics (solo en producción) -->
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        document.write('<script defer src="https://cdn.vercel-insights.com/v1/script.js"><\/script>');
+      }
+    </script>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <div class="page-shell">
       <header class="site-header">
         <a
@@ -47,18 +160,29 @@
         >
           <a href="#servicios" data-i18n="navServices">Servicios</a>
           <a href="#proceso" data-i18n="navProcess">Proceso</a>
+          <a href="#recursos" data-i18n="navRecursos">Recursos</a>
           <a href="#contacto" data-i18n="navContact">Contacto</a>
         </nav>
 
         <div class="header-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            id="theme-toggle"
+            aria-label="Cambiar tema claro/oscuro"
+          >
+            <span class="theme-icon-light" aria-hidden="true">☀️</span>
+            <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+          </button>
+
           <div
             class="lang-switch"
             role="group"
             aria-label="Selector de idioma"
             data-i18n-aria-label="languageSelector"
           >
-            <button class="lang-button is-active" type="button" data-language="es">ES</button>
-            <button class="lang-button" type="button" data-language="en">EN</button>
+            <button class="lang-button is-active" type="button" data-language="es">🇪🇸</button>
+            <button class="lang-button" type="button" data-language="en">🇺🇸</button>
           </div>
 
           <a
@@ -71,7 +195,7 @@
         </div>
       </header>
 
-      <main id="top">
+      <main id="main-content">
         <section class="hero section">
           <div class="hero-copy reveal">
             <p class="eyebrow" data-i18n="heroEyebrow">Diseño y desarrollo de landing pages</p>
@@ -319,6 +443,41 @@
           </div>
         </section>
 
+        <section class="section recursos-section" id="recursos">
+          <div class="section-heading reveal">
+            <p class="eyebrow" data-i18n="recursosEyebrow">Guías y recursos</p>
+            <h2 data-i18n="recursosTitle">
+              Aprende cómo mejorar tu presencia online y captar más clientes
+            </h2>
+          </div>
+
+          <div class="cards-grid">
+            <article class="service-card reveal">
+              <p class="card-label" data-i18n="recursosCta">Leer más</p>
+              <h3 data-i18n="recursoOneTitle">Cómo elegir una landing page para tu negocio</h3>
+              <p data-i18n="recursoOneText">
+                Guía práctica para decidir qué tipo de landing necesitas según tu sector, objetivo y presupuesto.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <p class="card-label" data-i18n="recursosCta">Leer más</p>
+              <h3 data-i18n="recursoTwoTitle">5 claves de diseño web que disparan la conversión</h3>
+              <p data-i18n="recursoTwoText">
+                Velocidad, jerarquía visual, copy y CTA: lo que realmente hace que una página convierta visitas en clientes.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <p class="card-label" data-i18n="recursosCta">Leer más</p>
+              <h3 data-i18n="recursoThreeTitle">Diseño web en Barcelona: guía para autónomos</h3>
+              <p data-i18n="recursoThreeText">
+                Por qué el SEO local importa y cómo posicionar tu negocio en búsquedas de tu ciudad.
+              </p>
+            </article>
+          </div>
+        </section>
+
         <section class="section contact-section" id="contacto">
           <div class="contact-copy reveal">
             <p class="eyebrow" data-i18n="contactEyebrow">Siguiente paso</p>
@@ -338,7 +497,7 @@
               <a
                 class="button button-ghost"
                 id="hero-whatsapp-link"
-                href="https://wa.me/34600000000?text=Hola%20WebMakingStudios%2C%20quiero%20pedir%20presupuesto%20para%20una%20landing."
+                href="https://wa.me/34665603259?text=Hola%20WebMakingStudios%2C%20quiero%20pedir%20presupuesto%20para%20una%20landing."
                 target="_blank"
                 rel="noreferrer"
                 data-i18n="contactSecondaryCta"
@@ -492,6 +651,8 @@
               alt=""
               width="48"
               height="48"
+              loading="lazy"
+              decoding="async"
             />
             <span class="brand-text" aria-label="WebMakingStudios">
               <span class="brand-text-strong">WebMaking</span>
@@ -511,12 +672,20 @@
       </footer>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="script.js"></script>
 
-    <!-- Vercel Speed Insights -->
+    <!-- Vercel Speed Insights (solo en producción) -->
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = '/_vercel/speed-insights/script.js';
+        document.body.appendChild(s);
+      }
+    </script>
   </body>
 </html>

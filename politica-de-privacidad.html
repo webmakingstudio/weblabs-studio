@@ -1,29 +1,67 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-i18n-title="privacyMetaTitle" data-i18n-meta-description="privacyMetaDescription">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tema: evita flash al cargar (antes de que pinte nada) -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('wms-theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <title>Política de privacidad | WebMakingStudios</title>
     <meta
       name="description"
-      content="Estructura base de la política de privacidad de WebMakingStudios, pendiente de completar antes de publicar."
+      content="Política de privacidad de WebMakingStudios. Información sobre la recogida, tratamiento y protección de datos personales conforme al RGPD y la LOPDGDD."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Preload: fuentes autohospedadas -->
+    <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="assets/brand/webmakingstudios-mark.svg" type="image/svg+xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Política de privacidad | WebMakingStudios" />
+    <meta property="og:description" content="Política de privacidad de WebMakingStudios. Información sobre la recogida, tratamiento y protección de datos personales conforme al RGPD y la LOPDGDD." />
+    <meta property="og:url" content="https://webmakingstudios.com/politica-de-privacidad.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Política de privacidad | WebMakingStudios" />
+    <meta name="twitter:description" content="Política de privacidad de WebMakingStudios. Información sobre la recogida, tratamiento y protección de datos personales conforme al RGPD y la LOPDGDD." />
+    <meta name="twitter:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+
+    <!-- SEO: noindex (página legal, no necesita indexarse) -->
+    <meta name="robots" content="noindex, follow" />
+
+    <!-- SEO: canonical + hreflang -->
+    <link rel="canonical" href="https://webmakingstudios.com/politica-de-privacidad.html" />
+    <link rel="alternate" hreflang="es" href="https://webmakingstudios.com/politica-de-privacidad.html?lang=es" />
+    <link rel="alternate" hreflang="en" href="https://webmakingstudios.com/politica-de-privacidad.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/politica-de-privacidad.html" />
+
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+    <!-- Vercel Analytics (solo en producción) -->
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        document.write('<script defer src="https://cdn.vercel-insights.com/v1/script.js"><\/script>');
+      }
+    </script>
   </head>
   <body data-legal-page="privacy-policy">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <div class="page-shell">
       <header class="site-header">
         <a
           class="brand"
-          href="index.html"
+          href="/"
           aria-label="Ir al inicio"
           data-i18n-aria-label="brandAriaLabel"
         >
@@ -45,7 +83,7 @@
           aria-label="Legal"
           data-i18n-aria-label="legalNavAriaLabel"
         >
-          <a href="index.html" data-i18n="legalNavHome">Inicio</a>
+          <a href="/" data-i18n="legalNavHome">Inicio</a>
           <a href="aviso-legal.html" data-i18n="legalNavNotice">Aviso legal</a>
           <a
             href="politica-de-privacidad.html"
@@ -57,19 +95,29 @@
         </nav>
 
         <div class="header-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            id="theme-toggle"
+            aria-label="Cambiar tema claro/oscuro"
+          >
+            <span class="theme-icon-light" aria-hidden="true">☀️</span>
+            <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+          </button>
+
           <div
             class="lang-switch"
             role="group"
             aria-label="Selector de idioma"
             data-i18n-aria-label="languageSelector"
           >
-            <button class="lang-button is-active" type="button" data-language="es">ES</button>
-            <button class="lang-button" type="button" data-language="en">EN</button>
+            <button class="lang-button is-active" type="button" data-language="es">🇪🇸</button>
+            <button class="lang-button" type="button" data-language="en">🇺🇸</button>
           </div>
 
           <a
             class="button button-ghost desktop-cta"
-            href="index.html#contacto"
+            href="/#contacto"
             data-i18n="legalHeaderCta"
           >
             Contactar
@@ -77,7 +125,7 @@
         </div>
       </header>
 
-      <main class="legal-main">
+      <main class="legal-main" id="main-content">
         <section class="section legal-hero reveal is-visible">
           <p class="eyebrow" data-i18n="legalHeroEyebrow">Estructura legal mínima</p>
           <h1 data-i18n="privacyTitle">Política de privacidad</h1>
@@ -133,9 +181,6 @@
               <li data-i18n="privacySectionThreeItemThree">
                 Gestionar comunicaciones relacionadas con el servicio solicitado.
               </li>
-              <li data-i18n="privacySectionThreeItemFour">
-                Añadir una finalidad comercial extra solo si realmente la vas a usar.
-              </li>
             </ul>
           </article>
 
@@ -147,9 +192,6 @@
               </li>
               <li data-i18n="privacySectionFourItemTwo">
                 Medidas precontractuales si se pide presupuesto.
-              </li>
-              <li data-i18n="privacySectionFourItemThree">
-                Consentimiento, solo si incorporas una finalidad adicional de marketing.
               </li>
             </ul>
           </article>
@@ -178,22 +220,31 @@
           <article class="legal-card">
             <h2 data-i18n="privacySectionSixTitle">6. Destinatarios y proveedores</h2>
             <ul class="legal-list">
-              <li data-i18n="privacySectionSixItemOne">Hosting del sitio web: Vercel Inc.</li>
+              <li data-i18n="privacySectionSixItemOne">
+                Los datos personales no serán cedidos a terceros, salvo obligación
+                legal. No obstante, para el correcto funcionamiento del sitio web se
+                utilizan los siguientes proveedores como encargados del tratamiento:
+              </li>
               <li data-i18n="privacySectionSixItemTwo">
-                Proveedor de envío transaccional del formulario: Resend
+                Alojamiento web: Vercel Inc. (Estados Unidos).
               </li>
               <li data-i18n="privacySectionSixItemThree">
-                Proveedor de correo electrónico de recepción: Google (Gmail)
+                Envío de correos transaccionales del formulario: Resend (Estados Unidos).
               </li>
               <li data-i18n="privacySectionSixItemFour">
-                Otros proveedores vinculados al funcionamiento del sitio: Google Fonts y,
-                en caso de contacto por mensajería, WhatsApp.
+                Recepción y gestión del correo electrónico: Google (Gmail).
               </li>
               <li data-i18n="privacySectionSixItemFive">
-                El uso de estos proveedores puede implicar transferencias
-                internacionales de datos. En su caso, dichas transferencias se
-                ampararán en los mecanismos y garantías previstos por la normativa
-                aplicable.
+                Tipografías del sitio: Google Fonts.
+              </li>
+              <li data-i18n="privacySectionSixItemSix">
+                En caso de contacto por WhatsApp, los datos compartidos estarán sujetos
+                a la política de privacidad de WhatsApp / Meta.
+              </li>
+              <li data-i18n="privacySectionSixItemSeven">
+                Todos los proveedores cumplen con los estándares del RGPD. Las
+                transferencias internacionales se amparan en los mecanismos previstos
+                por la normativa aplicable.
               </li>
             </ul>
           </article>
@@ -201,12 +252,30 @@
           <article class="legal-card">
             <h2 data-i18n="privacySectionSevenTitle">7. Derechos de las personas usuarias</h2>
             <ul class="legal-list">
-              <li data-i18n="privacySectionSevenItemOne">Acceso</li>
-              <li data-i18n="privacySectionSevenItemTwo">Rectificación</li>
-              <li data-i18n="privacySectionSevenItemThree">Supresión</li>
-              <li data-i18n="privacySectionSevenItemFour">Oposición</li>
-              <li data-i18n="privacySectionSevenItemFive">Limitación del tratamiento</li>
-              <li data-i18n="privacySectionSevenItemSix">Portabilidad, cuando proceda</li>
+              <li data-i18n="privacySectionSevenItemOne">
+                Cualquier persona tiene derecho a obtener confirmación sobre si se
+                están tratando sus datos y a acceder a los mismos.
+              </li>
+              <li data-i18n="privacySectionSevenItemTwo">
+                Derecho a solicitar la rectificación de datos inexactos o incompletos.
+              </li>
+              <li data-i18n="privacySectionSevenItemThree">
+                Derecho a solicitar la supresión cuando los datos ya no sean necesarios.
+              </li>
+              <li data-i18n="privacySectionSevenItemFour">
+                Derecho a oponerse al tratamiento en determinadas circunstancias.
+              </li>
+              <li data-i18n="privacySectionSevenItemFive">
+                Derecho a solicitar la limitación del tratamiento.
+              </li>
+              <li data-i18n="privacySectionSevenItemSix">
+                Derecho a la portabilidad de los datos cuando proceda.
+              </li>
+              <li data-i18n="privacySectionSevenItemSeven">
+                Para ejercer estos derechos, envía un email a webmakingstudios@gmail.com
+                indicando el derecho y adjuntando copia de tu documento de identidad.
+                También puedes presentar una reclamación ante la AEPD (www.aepd.es).
+              </li>
             </ul>
           </article>
 
@@ -231,7 +300,7 @@
         <div class="footer-copy">
           <a
             class="brand footer-brand"
-            href="index.html"
+            href="/"
             aria-label="Ir al inicio"
             data-i18n-aria-label="brandAriaLabel"
           >
@@ -241,6 +310,8 @@
               alt=""
               width="48"
               height="48"
+              loading="lazy"
+              decoding="async"
             />
             <span class="brand-text" aria-label="WebMakingStudios">
               <span class="brand-text-strong">WebMaking</span>
@@ -252,18 +323,26 @@
           </p>
         </div>
         <div class="footer-links">
-          <a href="index.html" data-i18n="legalFooterHome">Inicio</a>
+          <a href="/" data-i18n="legalFooterHome">Inicio</a>
           <a href="aviso-legal.html" data-i18n="legalFooterNotice">Aviso legal</a>
         </div>
       </footer>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="legal.js"></script>
 
-    <!-- Vercel Speed Insights -->
+    <!-- Vercel Speed Insights (solo en producción) -->
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = '/_vercel/speed-insights/script.js';
+        document.body.appendChild(s);
+      }
+    </script>
   </body>
 </html>

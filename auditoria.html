@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebMakingStudios — Auditoría completa</title>
+  <style>
+    /* ── Design tokens ──────────────────────────────────────────── */
+    :root {
+      --bg: #f9f6f0;
+      --card: #fffdf9;
+      --text: #1f1a14;
+      --muted: #6b5f52;
+      --line: #e8e0d4;
+      --line-subtle: #f0eae0;
+      --green: #1a6e3e;
+      --green-bg: #e2f3e8;
+      --red: #b33a2a;
+      --red-bg: #fce8e4;
+      --amber: #b05b14;
+      --amber-bg: #fef3e4;
+      --blue: #2a6496;
+      --blue-bg: #e4eff8;
+      --purple: #6b3fa0;
+      --purple-bg: #f0e8f8;
+      --accent: #c95f37;
+      --radius-sm: 8px;
+      --radius: 14px;
+      --radius-lg: 20px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 32px 20px 64px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    .audit-header {
+      display: grid;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .audit-header h1 {
+      font-size: 2rem;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+    .audit-header .meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    .meta-dot { width: 4px; height: 4px; border-radius: 999px; background: var(--muted); }
+
+    /* ── Stats row ──────────────────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      box-shadow: var(--shadow);
+    }
+    .stat-card .stat-value {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .stat-done .stat-value { color: var(--green); }
+    .stat-pending .stat-value { color: var(--red); }
+    .stat-seo .stat-value { color: var(--blue); }
+    .stat-files .stat-value { color: var(--purple); font-size: 1.8rem; }
+
+    /* ── Progress bar ────────────────────────────────────────────── */
+    .progress-wrap { margin-bottom: 32px; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .progress-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: var(--line);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), #3aad6b);
+      transition: width 400ms ease;
+    }
+    .progress-fill.warn { background: linear-gradient(90deg, var(--amber), #d99858); }
+    .progress-fill.danger { background: linear-gradient(90deg, var(--red), #e0734a); }
+
+    /* ── Quick nav ───────────────────────────────────────────────── */
+    .quick-nav {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 12px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      margin-bottom: 36px;
+      box-shadow: var(--shadow-md);
+      overflow-x: auto;
+    }
+    .quick-nav a {
+      flex: 0 0 auto;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background 150ms ease, color 150ms ease;
+      white-space: nowrap;
+    }
+    .quick-nav a:hover,
+    .quick-nav a:focus-visible {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    /* ── Section headers ─────────────────────────────────────────── */
+    .section { margin-bottom: 40px; }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+    }
+    .section-header h2 {
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-count {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .section-count.done { background: var(--green-bg); color: var(--green); }
+    .section-count.pending { background: var(--red-bg); color: var(--red); }
+    .section-count.manual { background: var(--amber-bg); color: var(--amber); }
+    .section-count.checklist { background: var(--blue-bg); color: var(--blue); }
+
+    /* ── Category group ──────────────────────────────────────────── */
+    .cat-group { margin-bottom: 28px; }
+    .cat-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 10px;
+      padding-left: 4px;
+      font-weight: 700;
+    }
+
+    /* ── Cards ─────────────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-bottom: 8px;
+      box-shadow: var(--shadow);
+      transition: box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .card:hover { box-shadow: var(--shadow-md); border-color: #d9cfc2; }
+    .card-inner {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: baseline;
+    }
+    .card-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: var(--line-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      flex: none;
+    }
+    .card strong { display: block; margin-bottom: 2px; font-size: 0.97rem; }
+    .card p { color: var(--muted); font-size: 0.89rem; line-height: 1.6; }
+    .card code { font-size: 0.82em; background: var(--line-subtle); padding: 1px 6px; border-radius: 4px; }
+    .card a { color: var(--accent); font-weight: 600; }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 5px;
+      margin-right: 5px;
+      margin-bottom: 3px;
+      background: var(--line-subtle);
+      color: var(--muted);
+      letter-spacing: 0.01em;
+      vertical-align: middle;
+    }
+
+    /* ── Alert cards ────────────────────────────────────────────── */
+    .card.alert-red { border-left: 4px solid var(--red); background: var(--red-bg); border-color: #f0c4ba; }
+    .card.alert-red strong { color: var(--red); }
+    .card.alert-amber { border-left: 4px solid var(--amber); background: var(--amber-bg); border-color: #f0d8b0; }
+    .card.alert-amber strong { color: var(--amber); }
+
+    /* ── Checklist cards ────────────────────────────────────────── */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      margin-bottom: 6px;
+      box-shadow: var(--shadow);
+    }
+    .checklist-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      flex: none;
+      accent-color: var(--green);
+    }
+    .checklist-item label { font-size: 0.92rem; cursor: pointer; }
+    .checklist-item label strong { display: block; margin-bottom: 2px; font-size: 0.95rem; }
+    .checklist-item label span { color: var(--muted); font-size: 0.85rem; }
+
+    /* ── Interval badge ─────────────────────────────────────────── */
+    .interval {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .interval.monthly { background: #fde8e4; color: #b33a2a; }
+    .interval.quarterly { background: #fef3e4; color: #b05b14; }
+    .interval.biannual { background: #e4eff8; color: #2a6496; }
+    .interval.continuous { background: #e2f3e8; color: #1a6e3e; }
+
+    /* ── File tree ────────────────────────────────────────────────── */
+    .file-tree {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow);
+      font-family: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+      font-size: 0.85rem;
+      line-height: 2;
+    }
+    .file-tree .dir { color: var(--blue); font-weight: 700; }
+    .file-tree .file { color: var(--muted); padding-left: 20px; }
+    .file-tree .comment { color: #aaa; padding-left: 20px; font-style: italic; }
+    .file-tree .new { color: var(--green); }
+    .file-tree .modified { color: var(--amber); }
+
+    hr { border: none; border-top: 1px solid var(--line); margin: 36px 0; }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    .audit-footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding-top: 24px;
+    }
+    .audit-footer a { color: var(--accent); font-weight: 600; }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 700px) {
+      body { padding: 20px 12px 48px; }
+      .audit-header h1 { font-size: 1.5rem; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .quick-nav { border-radius: var(--radius); gap: 4px; }
+      .quick-nav a { font-size: 0.8rem; padding: 5px 12px; }
+      .card-inner { grid-template-columns: 1fr; }
+      .card-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ═══ HEADER ════════════════════════════════════════════════════ -->
+  <header class="audit-header">
+    <h1>WebMakingStudios<br>Auditoría completa</h1>
+    <div class="meta">
+      <span>📅 6 julio 2026</span>
+      <span class="meta-dot"></span>
+      <span>🏷️ v1.0 pre-lanzamiento</span>
+      <span class="meta-dot"></span>
+      <span>🌐 webmakingstudios.com</span>
+    </div>
+  </header>
+
+  <!-- ═══ STATS ════════════════════════════════════════════════════ -->
+  <div class="stats-row">
+    <div class="stat-card stat-done">
+      <div class="stat-value">33</div>
+      <div class="stat-label">✅ Cambios aplicados</div>
+    </div>
+    <div class="stat-card stat-pending">
+      <div class="stat-value">4</div>
+      <div class="stat-label">🔴 Pendientes (seguridad)</div>
+    </div>
+    <div class="stat-card stat-seo">
+      <div class="stat-value">18/19</div>
+      <div class="stat-label">🎯 Hallazgos SEO resueltos</div>
+    </div>
+    <div class="stat-card stat-files">
+      <div class="stat-value">16</div>
+      <div class="stat-label">📁 Archivos en el proyecto</div>
+    </div>
+  </div>
+
+  <!-- ═══ PROGRESS ══════════════════════════════════════════════════ -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Progreso general del proyecto</span>
+      <span>89%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:89%"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>SEO — 18 de 19 hallazgos implementados</span>
+      <span>95%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width:95%"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Seguridad — 1 de 4 acciones completadas</span>
+      <span>25%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill danger" style="width:25%"></div>
+    </div>
+  </div>
+
+  <!-- ═══ QUICK NAV ════════════════════════════════════════════════ -->
+  <nav class="quick-nav" aria-label="Navegación rápida">
+    <a href="#hecho">✅ Cambios</a>
+    <a href="#seguridad">🔴 Seguridad</a>
+    <a href="#seo-pending">🎯 SEO pendiente</a>
+    <a href="#mantenimiento">📅 Mantenimiento</a>
+    <a href="#deploy">🚀 Pre-lanzamiento</a>
+    <a href="#inventario">📁 Inventario</a>
+  </nav>
+
+  <!-- ═══ HECHO ──────────────────────────────────────────────────── -->
+  <div class="section" id="hecho">
+    <div class="section-header">
+      <h2>✅ Cambios aplicados</h2>
+      <span class="section-count done">33</span>
+    </div>
+
+    <!-- ── Código y legal ────────────────────────────────────────── -->
+    <div class="cat-group">
+      <div class="cat-title">🏗️ Arquitectura y legal</div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">1</div><div>
+        <strong>i18n extraída</strong>
+        <p><span class="tag">i18n.js</span><span class="tag">script.js</span><span class="tag">legal.js</span> ~350 líneas duplicadas eliminadas. <code>createI18n()</code> compartido entre landing y páginas legales.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">2</div><div>
+        <strong>Páginas legales completas</strong>
+        <p><span class="tag">legal.js</span> Texto legal real (LSSI + RGPD) en español e inglés. Aviso legal (6 secciones) y política de privacidad (8 secciones) con redacción completa.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">3</div><div>
+        <strong>package.json + .gitignore</strong>
+        <p><span class="tag">package.json</span><span class="tag">.gitignore</span> Metadatos del proyecto, dependencia Vercel, scripts dev/deploy, archivos ignorados.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">4</div><div>
+        <strong>Rate limiting en API</strong>
+        <p><span class="tag">api/contact.mjs</span> Sliding window: máx 5 peticiones por IP cada 15 min. Respuesta 429 con mensaje informativo.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">5</div><div>
+        <strong>Validación de email robusta</strong>
+        <p><span class="tag">api/contact.mjs</span> Regex RFC 5321, máx 254 caracteres, bloqueo de dominios desechables. Honeypot anti-spam.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">6</div><div>
+        <strong>WhatsApp corregido</strong>
+        <p><span class="tag">index.html</span> Placeholder <code>34600000000</code> → <code>34665603259</code>. También en hero, contacto y formulario.</p>
+      </div></div></div>
+    </div>
+
+    <!-- ── UX / Accesibilidad ─────────────────────────────────────── -->
+    <div class="cat-group">
+      <div class="cat-title">🎨 UX y accesibilidad</div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">7</div><div>
+        <strong>Modo oscuro + toggle manual</strong>
+        <p><span class="tag">styles.css</span><span class="tag">i18n.js</span><span class="tag">3 HTMLs</span> <code>data-theme</code> con botón ☀️/🌙. Anti-FOUC con script inline en <code>&lt;head&gt;</code>. Fallback OS con <code>prefers-color-scheme</code>.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">8</div><div>
+        <strong>Skip-to-content link</strong>
+        <p><span class="tag">3 HTMLs</span><span class="tag">styles.css</span> Enlace "Saltar al contenido" como primer elemento focusable. Solo visible al recibir foco.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">9</div><div>
+        <strong>Transición al cambiar idioma</strong>
+        <p><span class="tag">i18n.js</span><span class="tag">styles.css</span> Micro-fade de opacidad (60ms out, 100ms in) al cambiar ES/EN. Clase <code>i18n-switching</code>.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">10</div><div>
+        <strong>Banderas en selector de idioma</strong>
+        <p><span class="tag">3 HTMLs</span> 🇪🇸 / 🇺🇸 en lugar de texto "ES" / "EN". Botones con estado activo visual.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">11</div><div>
+        <strong>Clases CSS unificadas</strong>
+        <p><span class="tag">styles.css</span> Clase <code>.card</code> base compartida entre preview, service-card, process-card, confidence-card, contact-form, legal-card. Sin duplicados.</p>
+      </div></div></div>
+    </div>
+
+    <!-- ── SEO Técnico ───────────────────────────────────────────── -->
+    <div class="cat-group">
+      <div class="cat-title">🔍 SEO técnico</div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">12</div><div>
+        <strong>robots.txt</strong>
+        <p><span class="tag">robots.txt</span> Allow todo, disallow /api/, apunta al sitemap.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">13</div><div>
+        <strong>sitemap.xml mejorado</strong>
+        <p><span class="tag">sitemap.xml</span> 4 URLs con <code>lastmod</code>, <code>changefreq</code>, <code>priority</code> y <code>hreflang</code>. Incluye sección Recursos. Comentario de mantenimiento.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">14</div><div>
+        <strong>hreflang ES / EN / x-default</strong>
+        <p><span class="tag">3 HTMLs</span><span class="tag">sitemap.xml</span> <code>hreflang="es"</code>, <code>"en"</code>, <code>"x-default"</code>. Parámetro <code>?lang=</code> activa el idioma.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">15</div><div>
+        <strong>Canonical URL</strong>
+        <p><span class="tag">3 HTMLs</span> <code>&lt;link rel="canonical"&gt;</code> en cada página. URLs limpias sin <code>index.html</code>.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">16</div><div>
+        <strong>Structured data JSON-LD</strong>
+        <p><span class="tag">index.html</span> 3 bloques: <code>Organization</code> + <code>WebSite</code> (SearchAction) + <code>ProfessionalService</code> (LocalBusiness con coordenadas, horario, área de servicio).</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">17</div><div>
+        <strong>noindex en páginas legales</strong>
+        <p><span class="tag">2 HTMLs</span> <code>meta robots noindex, follow</code> en aviso legal y política de privacidad.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">18</div><div>
+        <strong>Página 404 personalizada</strong>
+        <p><span class="tag">404.html</span> Diseño coherente con la marca, links a inicio y contacto, <code>noindex</code>.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">19</div><div>
+        <strong>URLs limpias (/)</strong>
+        <p><span class="tag">2 HTMLs</span> Todos los <code>href="index.html"</code> → <code>href="/"</code>. Sin URLs duplicadas.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">20</div><div>
+        <strong>i18n soporta ?lang=</strong>
+        <p><span class="tag">i18n.js</span> El parámetro URL <code>?lang=es</code> o <code>?lang=en</code> tiene prioridad sobre localStorage. Necesario para hreflang.</p>
+      </div></div></div>
+    </div>
+
+    <!-- ── SEO Contenido ──────────────────────────────────────────── -->
+    <div class="cat-group">
+      <div class="cat-title">📝 SEO de contenido</div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">21</div><div>
+        <strong>Keywords locales integradas</strong>
+        <p><span class="tag">script.js</span> "Landing pages para autónomos", "diseño web Barcelona", "negocios locales" en hero, headings, intro band, footer y audiencia. Traducciones ES/EN.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">22</div><div>
+        <strong>Meta descriptions con CTA y keywords</strong>
+        <p><span class="tag">script.js</span> Descripciones persuasivas: "Landing pages que convierten visitas en clientes. Diseño web profesional en Barcelona. Pide presupuesto sin compromiso."</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">23</div><div>
+        <strong>Sección de Recursos / Guías</strong>
+        <p><span class="tag">index.html</span><span class="tag">script.js</span> Nueva sección indexable: 3 guías temáticas sobre landing pages, conversión y SEO local. Enlazada desde la navegación principal.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">24</div><div>
+        <strong>Open Graph + Twitter Cards</strong>
+        <p><span class="tag">3 HTMLs</span> <code>og:title</code>, <code>og:description</code>, <code>og:image</code> (PNG), <code>og:type</code>, <code>twitter:card</code> en todas las páginas.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">25</div><div>
+        <strong>OG image PNG 1200×630</strong>
+        <p><span class="tag">assets/brand/og-image.png</span> Imagen estática con marca, eslogan y CTA. Compatible con WhatsApp, Telegram, LinkedIn y Facebook.</p>
+      </div></div></div>
+    </div>
+
+    <!-- ── Rendimiento ────────────────────────────────────────────── -->
+    <div class="cat-group">
+      <div class="cat-title">⚡ Rendimiento (Core Web Vitals)</div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">26</div><div>
+        <strong>Google Fonts autohospedadas</strong>
+        <p><span class="tag">styles.css</span><span class="tag">4 HTMLs</span> Manrope variable (25 KB) + Instrument Serif (43 KB) en woff2. 0 conexiones externas a Google Fonts.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">27</div><div>
+        <strong>Google Fonts display=swap</strong>
+        <p>Ya estaba presente. Verificado en todas las URLs. Sin riesgo de FOIT (flash of invisible text).</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">28</div><div>
+        <strong>Preload de recursos críticos</strong>
+        <p><span class="tag">4 HTMLs</span> <code>link rel="preload"</code> para manrope.woff2, instrument-serif-regular.woff2 y logo SVG. Mejora LCP.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">29</div><div>
+        <strong>Lazy loading en imágenes</strong>
+        <p><span class="tag">3 HTMLs</span> <code>loading="lazy"</code> + <code>decoding="async"</code> en imágenes del footer. No afecta al LCP.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">30</div><div>
+        <strong>Cache headers (vercel.json)</strong>
+        <p><span class="tag">vercel.json</span> <code>max-age=31536000, immutable</code> para fuentes, SVG y assets estáticos. 1 hora para sitemap, 24h para robots.txt.</p>
+      </div></div></div>
+
+      <div class="card"><div class="card-inner"><div class="card-num">31</div><div>
+        <strong>Scripts de Vercel condicionales</strong>
+        <p><span class="tag">3 HTMLs</span> Analytics y Speed Insights solo se cargan cuando el hostname no es localhost/127.0.0.1.</p>
+      </div></div></div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ═══ PENDIENTE SEGURIDAD ═══════════════════════════════════════ -->
+  <div class="section" id="seguridad">
+    <div class="section-header">
+      <h2>🔴 Seguridad — Acciones urgentes</h2>
+      <span class="section-count pending">4</span>
+    </div>
+
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
+      Estos 4 ítems deben resolverse <strong>antes de hacer público el repositorio</strong> o desplegar en producción.
+    </p>
+
+    <div class="card alert-red">
+      <strong>🔐 1. Revocar API key de Resend</strong>
+      <p><span class="tag">.env.local</span> La key real fue commiteada. Ve a <a href="https://dashboard.resend.com">dashboard.resend.com</a> → API Keys → revocar → generar nueva. Copia la nueva key a <code>.env.local</code>.</p>
+    </div>
+
+    <div class="card alert-red">
+      <strong>🧹 2. Limpiar .env.local del historial de git</strong>
+      <p><span class="tag">.env.local</span> <code>git rm --cached .env.local && git commit</code> como mínimo. Si ya has hecho push, usa <code>git filter-branch</code> o BFG Repo-Cleaner. Después, verifica que <code>.gitignore</code> lo excluye (ya está incluido).</p>
+    </div>
+
+    <div class="card alert-red">
+      <strong>👤 3. Datos personales en el repositorio</strong>
+      <p><span class="tag">legal.js</span> Nombre completo, NIF, dirección y teléfono están en texto plano en las traducciones. Si el repo es o será público, valora mover estos datos a variables de entorno o a un CMS.</p>
+    </div>
+
+    <div class="card alert-amber">
+      <strong>🟡 4. Email y teléfono visibles en el código</strong>
+      <p><span class="tag">script.js</span><span class="tag">index.html</span> El email y teléfono están en el HTML/JS. Es normal en una landing, pero atraerá spam. El honeypot del formulario ayuda, pero no hay protección anti-scraping en los <code>mailto:</code> y enlaces visibles.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ═══ SEO PENDIENTE ═════════════════════════════════════════════ -->
+  <div class="section" id="seo-pending">
+    <div class="section-header">
+      <h2>🎯 SEO — Pendiente (acción manual)</h2>
+      <span class="section-count manual">1</span>
+    </div>
+
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
+      <strong>18 de 19</strong> hallazgos SEO implementados. Solo queda 1 ítem que requiere acción tuya manual.
+    </p>
+
+    <div class="card alert-amber">
+      <strong>Google Business Profile — Crear y verificar</strong>
+      <p>Para búsquedas locales, GBP es el factor #1 en el Local Pack. Debes:</p>
+      <p style="margin-top:8px">
+        1. Ir a <a href="https://business.google.com/">business.google.com</a> y crear el perfil<br>
+        2. Verificar la dirección (Google enviará una postal)<br>
+        3. Completar: categoría "Diseñador de páginas web", descripción (la que generamos), horario L-V 9-18, fotos, logo<br>
+        4. El NAP debe coincidir exactamente con el JSON-LD y las páginas legales
+      </p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ═══ MANTENIMIENTO MANUAL ══════════════════════════════════════ -->
+  <div class="section" id="mantenimiento">
+    <div class="section-header">
+      <h2>📅 Mantenimiento SEO recurrente</h2>
+      <span class="section-count manual">10 tareas</span>
+    </div>
+
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 20px;">
+      Estas tareas no se pueden automatizar desde el código. Marca cada una cuando la completes para llevar registro.
+    </p>
+
+    <!-- Mensual -->
+    <span class="interval monthly">📅 Mensual</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="m1"><label for="m1"><strong>Google Search Console — Revisar rendimiento</strong><span> Queries, páginas, errores de indexación. Si ves queries nuevas, crea contenido relacionado.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="m2"><label for="m2"><strong>Publicar contenido nuevo (Recursos/Guías)</strong><span> Al menos 1 guía o artículo al mes. Enlaza las tarjetas de la sección Recursos a páginas reales.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="m3"><label for="m3"><strong>Ajustar keywords según resultados</strong><span> Revisa en Search Console qué términos funcionan y ajusta el contenido de la landing.</span></label>
+    </div>
+
+    <!-- Trimestral -->
+    <span class="interval quarterly" style="margin-top: 20px;">📅 Trimestral</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="q1"><label for="q1"><strong>Google Business Profile — Publicar actualización</strong><span> Foto, oferta o noticia. Responde a todas las reseñas. Verifica que el NAP coincida con la web.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="q2"><label for="q2"><strong>Directorios y citas locales</strong><span> Date de alta en Páginas Amarillas, Axesor, eInforma, Hotfrog con NAP exacto.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="q3"><label for="q3"><strong>Backlinks — Guest posting / colaboraciones</strong><span> Escribe en blogs de marketing digital o colabora con negocios locales.</span></label>
+    </div>
+
+    <!-- Semestral / Anual -->
+    <span class="interval biannual" style="margin-top: 20px;">📅 Semestral / Anual</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="s1"><label for="s1"><strong>Auditoría de contenido — Actualizar textos</strong><span> Revisa precios, servicios y enfoque. Google valora el contenido fresco.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="s2"><label for="s2"><strong>Core Web Vitals — Monitorear en Search Console</strong><span> Corrige LCP, INP o CLS si empeoran tras cambios en el código.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="s3"><label for="s3"><strong>Analytics — Revisar tendencias</strong><span> Fuentes de tráfico, páginas visitadas, tasa de conversión del formulario.</span></label>
+    </div>
+
+    <!-- Continuo -->
+    <span class="interval continuous" style="margin-top: 20px;">🟢 Continuo</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="c1"><label for="c1"><strong>Redes sociales — Compartir cada artículo nuevo</strong><span> LinkedIn, Twitter/X, Instagram. Genera tráfico y backlinks potenciales.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="c2"><label for="c2"><strong>Reseñas — Pedir y responder</strong><span> Cada cliente satisfecho → reseña en Google. Responde siempre. Es el factor #2 del Local Pack.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="c3"><label for="c3"><strong>Contenido duplicado bajo control</strong><span> Páginas nuevas: canonical correcto + noindex en las que no deban indexarse.</span></label>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ═══ DEPLOYMENT CHECKLIST ══════════════════════════════════════ -->
+  <div class="section" id="deploy">
+    <div class="section-header">
+      <h2>🚀 Checklist de pre-lanzamiento</h2>
+      <span class="section-count checklist">12</span>
+    </div>
+
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">
+      Marca cada ítem antes de publicar la web en producción. Así no se te escapa nada.
+    </p>
+
+    <span class="interval monthly">🔐 Seguridad</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="d1"><label for="d1"><strong>API key de Resend revocada y regenerada</strong><span> La key commiteada ya no es válida. Usa la nueva en Vercel (Settings → Environment Variables).</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d2"><label for="d2"><strong>.env.local fuera del repo</strong><span> Eliminado del índice de git y del historial. Variables de entorno configuradas en Vercel.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d3"><label for="d3"><strong>Datos personales revisados</strong><span> Decidido si los datos reales van en el código, en variables de entorno o en un CMS.</span></label>
+    </div>
+
+    <span class="interval quarterly" style="margin-top: 20px;">🌐 Dominio y SEO</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="d4"><label for="d4"><strong>Dominio configurado en Vercel</strong><span> webmakingstudios.com → Vercel. DNS con registros A/CNAME correctos. SSL activo.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d5"><label for="d5"><strong>Google Search Console — Propiedad verificada</strong><span> Añade la propiedad (dominio o URL prefix) y verifica con el método DNS o TXT record.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d6"><label for="d6"><strong>Sitemap enviado a Search Console</strong><span> Envía <code>sitemap.xml</code> manualmente la primera vez. Luego Google lo revisará solo.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d7"><label for="d7"><strong>Google Business Profile creado y verificado</strong><span> Perfil completado con la descripción que generamos, fotos, horario y categoría.</span></label>
+    </div>
+
+    <span class="interval biannual" style="margin-top: 20px;">📊 Analítica y monitoreo</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="d8"><label for="d8"><strong>Vercel Analytics funcionando</strong><span> Comprueba que los scripts de Analytics y Speed Insights cargan en producción.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d9"><label for="d9"><strong>Formulario de contacto probado</strong><span> Envía un test desde producción. Verifica que el email llega a Gmail y que WhatsApp funciona.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d10"><label for="d10"><strong>Páginas legales visibles</strong><span> Los links del footer funcionan. Las páginas tienen <code>noindex</code> y el aviso legal está completo.</span></label>
+    </div>
+
+    <span class="interval continuous" style="margin-top: 20px;">🖼️ Visual</span>
+    <div class="checklist-item">
+      <input type="checkbox" id="d11"><label for="d11"><strong>OG image se ve bien al compartir</strong><span> Prueba en <a href="https://www.opengraph.xyz/">opengraph.xyz</a> o comparte la URL en WhatsApp/Telegram para ver la previsualización.</span></label>
+    </div>
+    <div class="checklist-item">
+      <input type="checkbox" id="d12"><label for="d12"><strong>Favicon y marca</strong><span> El favicon SVG funciona en navegadores modernos. Valora añadir un favicon.ico para compatibilidad legacy.</span></label>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- ═══ INVENTARIO ════════════════════════════════════════════════ -->
+  <div class="section" id="inventario">
+    <div class="section-header">
+      <h2>📁 Inventario de archivos</h2>
+      <span class="section-count done">16 archivos</span>
+    </div>
+
+    <p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 14px;">
+      Estado actual del proyecto. <span class="new">Verde</span> = creado en esta auditoría. <span class="modified">Naranja</span> = modificado.
+    </p>
+
+    <div class="file-tree">
+      <span class="dir">weblabs-studio/</span><br>
+      <span class="dir">├── api/</span><br>
+      <span class="file modified">│&nbsp;&nbsp; └── contact.mjs</span> <span style="color:var(--muted);font-size:0.75rem;">— Rate limiting + validación</span><br>
+      <span class="dir">├── assets/</span><br>
+      <span class="dir">│&nbsp;&nbsp; ├── brand/</span><br>
+      <span class="file">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── webmakingstudios-mark.svg</span><br>
+      <span class="file">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── webmakingstudios-lockup.svg</span><br>
+      <span class="file new">│&nbsp;&nbsp; │&nbsp;&nbsp; └── og-image.png</span> <span style="color:var(--muted);font-size:0.75rem;">— 1200×630 PNG</span><br>
+      <span class="dir new">│&nbsp;&nbsp; └── fonts/</span> <span style="color:var(--muted);font-size:0.75rem;">— 68 KB woff2</span><br>
+      <span class="file new">│&nbsp;&nbsp; &nbsp;&nbsp; ├── manrope.woff2</span> <span style="color:var(--muted);font-size:0.75rem;">— Variable 400-800</span><br>
+      <span class="file new">│&nbsp;&nbsp; &nbsp;&nbsp; ├── instrument-serif-regular.woff2</span><br>
+      <span class="file new">│&nbsp;&nbsp; &nbsp;&nbsp; └── instrument-serif-italic.woff2</span><br>
+      <span class="file modified">├── index.html</span><br>
+      <span class="file modified">├── aviso-legal.html</span><br>
+      <span class="file modified">├── politica-de-privacidad.html</span><br>
+      <span class="file modified">├── 404.html</span><br>
+      <span class="file modified">├── styles.css</span> <span style="color:var(--muted);font-size:0.75rem;">— @font-face + dark mode</span><br>
+      <span class="file new">├── i18n.js</span> <span style="color:var(--muted);font-size:0.75rem;">— createI18n() + theme toggle</span><br>
+      <span class="file modified">├── script.js</span> <span style="color:var(--muted);font-size:0.75rem;">— Landing translations</span><br>
+      <span class="file modified">├── legal.js</span> <span style="color:var(--muted);font-size:0.75rem;">— Legal translations</span><br>
+      <span class="file new">├── robots.txt</span><br>
+      <span class="file new">├── sitemap.xml</span><br>
+      <span class="file new">├── vercel.json</span> <span style="color:var(--muted);font-size:0.75rem;">— Cache headers</span><br>
+      <span class="file new">├── package.json</span><br>
+      <span class="file new">├── .gitignore</span><br>
+      <span class="file modified">└── auditoria.html</span> <span style="color:var(--muted);font-size:0.75rem;">— Este archivo</span>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════ -->
+  <footer class="audit-footer">
+    <p><a href="/">← Volver a la landing</a></p>
+    <p style="margin-top: 12px;">WebMakingStudios · Auditoría generada el 6 de julio de 2026</p>
+  </footer>
+
+</div>
+</body>
+</html>

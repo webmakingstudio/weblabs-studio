@@ -1,3 +1,28 @@
+/* ── Self-hosted fonts ────────────────────────────────────────── */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('assets/fonts/manrope.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/instrument-serif-regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('assets/fonts/instrument-serif-italic.woff2') format('woff2');
+}
+
 :root {
   --bg: #f4efe8;
   --surface: rgba(255, 250, 244, 0.8);
@@ -312,6 +337,8 @@ img {
   z-index: -1;
 }
 
+/* ── Card surface (shared look) ─────────────────────────────────── */
+.card,
 .preview-window,
 .intro-band,
 .service-card,
@@ -319,7 +346,8 @@ img {
 .confidence-card,
 .audience-panel,
 .contact-form,
-.contact-copy {
+.contact-copy,
+.legal-card {
   background: var(--card);
   border: 1px solid rgba(255, 255, 255, 0.65);
   box-shadow: var(--shadow);
@@ -431,7 +459,8 @@ img {
 
 .service-card,
 .process-card,
-.confidence-card {
+.confidence-card,
+.legal-card {
   border-radius: var(--radius-lg);
   padding: 28px;
 }
@@ -750,14 +779,7 @@ img {
   gap: 20px;
 }
 
-.legal-card {
-  padding: 28px;
-  border-radius: var(--radius-lg);
-  background: var(--card);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(24px);
-}
+/* legal-card inherits .card look + .service-card padding/radius via grouped selectors */
 
 .legal-card h2 {
   margin: 0;
@@ -884,5 +906,231 @@ img {
   .contact-copy,
   .contact-form {
     padding: 22px;
+  }
+}
+
+/* ── Skip-to-content link ──────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 16px;
+  z-index: 1000;
+  padding: 12px 22px;
+  background: var(--accent);
+  color: #fffaf5;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(201, 95, 55, 0.3);
+  transition: top 200ms ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ── Language-switch transition ─────────────────────────────────── */
+html.i18n-switching .page-shell {
+  opacity: 0.35;
+  transition: opacity 60ms ease;
+}
+
+.page-shell {
+  transition: opacity 100ms ease;
+}
+
+/* ── Theme toggle button ────────────────────────────────────────── */
+.theme-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 251, 246, 0.72);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* Show sun ☀️ in dark mode (click → light), moon 🌙 in light mode (click → dark) */
+[data-theme="light"] .theme-icon-light,
+[data-theme="dark"] .theme-icon-dark {
+  display: none;
+}
+
+/* ── Dark mode — manual override (JS toggle) ───────────────────── */
+:root[data-theme="dark"] {
+  --bg: #1a1512;
+  --surface: rgba(28, 24, 20, 0.82);
+  --surface-strong: #1e1915;
+  --card: rgba(26, 21, 17, 0.88);
+  --card-strong: #1e1914;
+  --line: rgba(255, 250, 244, 0.09);
+  --text: #e8dfd4;
+  --muted: #a89882;
+  --accent: #e07a4c;
+  --accent-strong: #f0a878;
+  --accent-soft: rgba(224, 122, 76, 0.16);
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.40);
+}
+
+[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at top left, rgba(224, 122, 76, 0.14), transparent 30%),
+    radial-gradient(circle at top right, rgba(168, 152, 130, 0.08), transparent 28%),
+    linear-gradient(180deg, #1e1914 0%, #1a1512 45%, #14110e 100%);
+}
+
+[data-theme="dark"] body::before {
+  background-image:
+    linear-gradient(rgba(232, 223, 212, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232, 223, 212, 0.025) 1px, transparent 1px);
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .preview-window,
+[data-theme="dark"] .intro-band,
+[data-theme="dark"] .service-card,
+[data-theme="dark"] .process-card,
+[data-theme="dark"] .confidence-card,
+[data-theme="dark"] .audience-panel,
+[data-theme="dark"] .contact-form,
+[data-theme="dark"] .contact-copy,
+[data-theme="dark"] .legal-card {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .site-nav,
+[data-theme="dark"] .lang-switch,
+[data-theme="dark"] .theme-toggle {
+  background: rgba(28, 24, 20, 0.78);
+}
+
+[data-theme="dark"] .preview-metrics div,
+[data-theme="dark"] .feature-item {
+  background: var(--surface);
+}
+
+[data-theme="dark"] .contact-form input,
+[data-theme="dark"] .contact-form select,
+[data-theme="dark"] .contact-form textarea {
+  background: var(--card-strong);
+}
+
+[data-theme="dark"] .button-ghost {
+  background: rgba(28, 24, 20, 0.7);
+  border-color: rgba(255, 250, 244, 0.10);
+}
+
+[data-theme="dark"] .form-status[data-state="success"] {
+  color: #4cbf7c;
+}
+
+[data-theme="dark"] .form-status[data-state="error"] {
+  color: #e0734a;
+}
+
+[data-theme="dark"] .lang-button.is-active {
+  background: linear-gradient(135deg, var(--accent), #c07040);
+}
+
+[data-theme="dark"] .consent-row a,
+[data-theme="dark"] .form-note a,
+[data-theme="dark"] .footer-links a,
+[data-theme="dark"] .legal-list a {
+  color: var(--accent-strong);
+}
+
+/* ── Dark mode — OS fallback (sin JS o primera visita sin toggle) ─ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1512;
+    --surface: rgba(28, 24, 20, 0.82);
+    --surface-strong: #1e1915;
+    --card: rgba(26, 21, 17, 0.88);
+    --card-strong: #1e1914;
+    --line: rgba(255, 250, 244, 0.09);
+    --text: #e8dfd4;
+    --muted: #a89882;
+    --accent: #e07a4c;
+    --accent-strong: #f0a878;
+    --accent-soft: rgba(224, 122, 76, 0.16);
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.40);
+  }
+
+  :root:not([data-theme="light"]) body {
+    background:
+      radial-gradient(circle at top left, rgba(224, 122, 76, 0.14), transparent 30%),
+      radial-gradient(circle at top right, rgba(168, 152, 130, 0.08), transparent 28%),
+      linear-gradient(180deg, #1e1914 0%, #1a1512 45%, #14110e 100%);
+  }
+
+  :root:not([data-theme="light"]) body::before {
+    background-image:
+      linear-gradient(rgba(232, 223, 212, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232, 223, 212, 0.025) 1px, transparent 1px);
+  }
+
+  :root:not([data-theme="light"]) .card,
+  :root:not([data-theme="light"]) .preview-window,
+  :root:not([data-theme="light"]) .intro-band,
+  :root:not([data-theme="light"]) .service-card,
+  :root:not([data-theme="light"]) .process-card,
+  :root:not([data-theme="light"]) .confidence-card,
+  :root:not([data-theme="light"]) .audience-panel,
+  :root:not([data-theme="light"]) .contact-form,
+  :root:not([data-theme="light"]) .contact-copy,
+  :root:not([data-theme="light"]) .legal-card {
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  :root:not([data-theme="light"]) .site-nav,
+  :root:not([data-theme="light"]) .lang-switch,
+  :root:not([data-theme="light"]) .theme-toggle {
+    background: rgba(28, 24, 20, 0.78);
+  }
+
+  :root:not([data-theme="light"]) .preview-metrics div,
+  :root:not([data-theme="light"]) .feature-item {
+    background: var(--surface);
+  }
+
+  :root:not([data-theme="light"]) .contact-form input,
+  :root:not([data-theme="light"]) .contact-form select,
+  :root:not([data-theme="light"]) .contact-form textarea {
+    background: var(--card-strong);
+  }
+
+  :root:not([data-theme="light"]) .button-ghost {
+    background: rgba(28, 24, 20, 0.7);
+    border-color: rgba(255, 250, 244, 0.10);
+  }
+
+  :root:not([data-theme="light"]) .form-status[data-state="success"] {
+    color: #4cbf7c;
+  }
+
+  :root:not([data-theme="light"]) .form-status[data-state="error"] {
+    color: #e0734a;
+  }
+
+  :root:not([data-theme="light"]) .lang-button.is-active {
+    background: linear-gradient(135deg, var(--accent), #c07040);
+  }
+
+  :root:not([data-theme="light"]) .consent-row a,
+  :root:not([data-theme="light"]) .form-note a,
+  :root:not([data-theme="light"]) .footer-links a,
+  :root:not([data-theme="light"]) .legal-list a {
+    color: var(--accent-strong);
   }
 }

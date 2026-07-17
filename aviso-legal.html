@@ -1,29 +1,67 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-i18n-title="legalNoticeMetaTitle" data-i18n-meta-description="legalNoticeMetaDescription">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tema: evita flash al cargar (antes de que pinte nada) -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('wms-theme');
+        if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <title>Aviso legal | WebMakingStudios</title>
     <meta
       name="description"
-      content="Estructura base del aviso legal de WebMakingStudios, pendiente de completar antes de publicar."
+      content="Aviso legal de WebMakingStudios. Información sobre la titularidad del sitio web, propiedad intelectual, responsabilidad y legislación aplicable."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Preload: fuentes autohospedadas -->
+    <link rel="preload" href="assets/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="assets/brand/webmakingstudios-mark.svg" type="image/svg+xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Aviso legal | WebMakingStudios" />
+    <meta property="og:description" content="Aviso legal de WebMakingStudios. Información sobre la titularidad del sitio web, propiedad intelectual, responsabilidad y legislación aplicable." />
+    <meta property="og:url" content="https://webmakingstudios.com/aviso-legal.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Aviso legal | WebMakingStudios" />
+    <meta name="twitter:description" content="Aviso legal de WebMakingStudios. Información sobre la titularidad del sitio web, propiedad intelectual, responsabilidad y legislación aplicable." />
+    <meta name="twitter:image" content="https://webmakingstudios.com/assets/brand/og-image.png" />
+
+    <!-- SEO: noindex (página legal, no necesita indexarse) -->
+    <meta name="robots" content="noindex, follow" />
+
+    <!-- SEO: canonical + hreflang -->
+    <link rel="canonical" href="https://webmakingstudios.com/aviso-legal.html" />
+    <link rel="alternate" hreflang="es" href="https://webmakingstudios.com/aviso-legal.html?lang=es" />
+    <link rel="alternate" hreflang="en" href="https://webmakingstudios.com/aviso-legal.html?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://webmakingstudios.com/aviso-legal.html" />
+
     <link rel="stylesheet" href="styles.css" />
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+    <!-- Vercel Analytics (solo en producción) -->
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        document.write('<script defer src="https://cdn.vercel-insights.com/v1/script.js"><\/script>');
+      }
+    </script>
   </head>
   <body data-legal-page="legal-notice">
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <div class="page-shell">
       <header class="site-header">
         <a
           class="brand"
-          href="index.html"
+          href="/"
           aria-label="Ir al inicio"
           data-i18n-aria-label="brandAriaLabel"
         >
@@ -45,7 +83,7 @@
           aria-label="Legal"
           data-i18n-aria-label="legalNavAriaLabel"
         >
-          <a href="index.html" data-i18n="legalNavHome">Inicio</a>
+          <a href="/" data-i18n="legalNavHome">Inicio</a>
           <a href="aviso-legal.html" aria-current="page" data-i18n="legalNavNotice">
             Aviso legal
           </a>
@@ -53,19 +91,29 @@
         </nav>
 
         <div class="header-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            id="theme-toggle"
+            aria-label="Cambiar tema claro/oscuro"
+          >
+            <span class="theme-icon-light" aria-hidden="true">☀️</span>
+            <span class="theme-icon-dark" aria-hidden="true">🌙</span>
+          </button>
+
           <div
             class="lang-switch"
             role="group"
             aria-label="Selector de idioma"
             data-i18n-aria-label="languageSelector"
           >
-            <button class="lang-button is-active" type="button" data-language="es">ES</button>
-            <button class="lang-button" type="button" data-language="en">EN</button>
+            <button class="lang-button is-active" type="button" data-language="es">🇪🇸</button>
+            <button class="lang-button" type="button" data-language="en">🇺🇸</button>
           </div>
 
           <a
             class="button button-ghost desktop-cta"
-            href="index.html#contacto"
+            href="/#contacto"
             data-i18n="legalHeaderCta"
           >
             Contactar
@@ -73,7 +121,7 @@
         </div>
       </header>
 
-      <main class="legal-main">
+      <main class="legal-main" id="main-content">
         <section class="section legal-hero reveal is-visible">
           <p class="eyebrow" data-i18n="legalHeroEyebrow">Estructura legal mínima</p>
           <h1 data-i18n="legalNoticeTitle">Aviso legal</h1>
@@ -192,7 +240,7 @@
         <div class="footer-copy">
           <a
             class="brand footer-brand"
-            href="index.html"
+            href="/"
             aria-label="Ir al inicio"
             data-i18n-aria-label="brandAriaLabel"
           >
@@ -202,6 +250,8 @@
               alt=""
               width="48"
               height="48"
+              loading="lazy"
+              decoding="async"
             />
             <span class="brand-text" aria-label="WebMakingStudios">
               <span class="brand-text-strong">WebMaking</span>
@@ -213,7 +263,7 @@
           </p>
         </div>
         <div class="footer-links">
-          <a href="index.html" data-i18n="legalFooterHome">Inicio</a>
+          <a href="/" data-i18n="legalFooterHome">Inicio</a>
           <a href="politica-de-privacidad.html" data-i18n="legalFooterPrivacy">
             Política de privacidad
           </a>
@@ -221,12 +271,20 @@
       </footer>
     </div>
 
+    <script src="i18n.js"></script>
     <script src="legal.js"></script>
 
-    <!-- Vercel Speed Insights -->
+    <!-- Vercel Speed Insights (solo en producción) -->
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        var s = document.createElement('script');
+        s.defer = true;
+        s.src = '/_vercel/speed-insights/script.js';
+        document.body.appendChild(s);
+      }
+    </script>
   </body>
 </html>

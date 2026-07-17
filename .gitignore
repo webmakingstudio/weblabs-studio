@@ -1,0 +1,21 @@
+# Dependencias
+node_modules/
+
+# Vercel
+.vercel/
+
+# Variables de entorno (contienen claves de API)
+.env.local
+.env
+.env.*.local
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

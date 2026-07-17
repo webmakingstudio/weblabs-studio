@@ -1,0 +1,11 @@
+# https://webmakingstudios.com/robots.txt
+# Todos los motores de búsqueda
+
+User-agent: *
+Allow: /
+
+# Las páginas legales no necesitan indexarse (ya tienen meta noindex)
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://webmakingstudios.com/sitemap.xml

@@ -1,0 +1,19 @@
+{
+  "name": "weblabs-studio",
+  "version": "1.0.0",
+  "description": "WebMakingStudios — Landing pages premium para captar clientes y convertir mejor.",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/webmakingstudio/weblabs-studio"
+  },
+  "author": "Alex Gutierrez Navau <webmakingstudios@gmail.com>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "devDependencies": {
+    "vercel": "^34.0.0"
+  }
+}
