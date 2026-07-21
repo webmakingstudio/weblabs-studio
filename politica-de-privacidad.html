@@ -54,6 +54,20 @@
         document.write('<script defer src="https://cdn.vercel-insights.com/v1/script.js"><\/script>');
       }
     </script>
+
+    <!-- Google Analytics (solo en producción) -->
+    <script>
+      if (window.location.hostname !== 'localhost' && !window.location.hostname.startsWith('127.0.0.1')) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-N29T657MJM');
+        var gtagScript = document.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-N29T657MJM';
+        document.head.appendChild(gtagScript);
+      }
+    </script>
   </head>
   <body data-legal-page="privacy-policy">
     <a class="skip-link" href="#main-content">Saltar al contenido</a>
