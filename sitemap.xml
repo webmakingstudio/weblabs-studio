@@ -11,27 +11,18 @@
   <!-- Home -->
   <url>
     <loc>https://webmakingstudio.com/</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/?lang=es" />
     <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/?lang=en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/" />
   </url>
-  <!-- Recursos / Guías -->
-  <url>
-    <loc>https://webmakingstudio.com/#recursos</loc>
-    <lastmod>2026-07-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/?lang=es#recursos" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://webmakingstudio.com/?lang=en#recursos" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://webmakingstudio.com/#recursos" />
-  </url>
+  <!-- Recursos / Guías (sección dentro de la home) -->
   <!-- Aviso legal -->
   <url>
     <loc>https://webmakingstudio.com/aviso-legal.html</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/aviso-legal.html?lang=es" />
@@ -41,7 +32,7 @@
   <!-- Política de privacidad -->
   <url>
     <loc>https://webmakingstudio.com/politica-de-privacidad.html</loc>
-    <lastmod>2026-07-06</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://webmakingstudio.com/politica-de-privacidad.html?lang=es" />

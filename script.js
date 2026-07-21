@@ -149,7 +149,7 @@ const translations = {
     recursoThreeTitle: "Diseño web en Barcelona: guía para autónomos",
     recursoThreeText:
       "Por qué el SEO local importa y cómo posicionar tu negocio en búsquedas de tu ciudad.",
-    recursosCta: "Leer más",
+    recursosCta: "Artículo",
     whatsappHeroPrompt:
       "Hola WebMakingStudios, quiero pedir presupuesto para mi landing.",
     whatsappGreeting: "Hola WebMakingStudios,",
@@ -303,7 +303,7 @@ const translations = {
     recursoThreeTitle: "Web design in Barcelona: a guide for freelancers",
     recursoThreeText:
       "Why local SEO matters and how to position your business in local search results.",
-    recursosCta: "Read more",
+    recursosCta: "Article",
     whatsappHeroPrompt:
       "Hi WebMakingStudios, I would like to request a quote for my landing page.",
     whatsappGreeting: "Hi WebMakingStudios,",

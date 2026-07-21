@@ -1,0 +1,373 @@
+{
+  "summary": {
+    "health_score": 29,
+    "business_type": "Agencia de landing pages — Servicio profesional local (Barcelona)",
+    "top_findings": [
+      "robots.txt apunta al dominio equivocado (webmakingstudios.com plural en vez de singular)",
+      "CERO schema markup en todo el sitio",
+      "Páginas legales con texto de plantilla/placeholder publicado",
+      "auditoria.html completamente indexable con datos sensibles de seguridad",
+      "Sin meta descriptions en ninguna página"
+    ],
+    "quick_wins": [
+      "Corregir dominio en robots.txt (5 min)",
+      "Añadir noindex a auditoria.html (2 min)",
+      "Corregir error encoding española (1 min)",
+      "Cambiar redirect 307→301 en Vercel (5 min)",
+      "Añadir meta descriptions (30 min)",
+      "Implementar schema Organization básico (1 h)"
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 35,
+      "weight": 22,
+      "what_works": [
+        "HTTPS forzado con redirect www→non-www",
+        "HSTS presente (max-age=63072000)",
+        "Hosting en Vercel con caché funcionando (x-vercel-cache: HIT)",
+        "robots.txt permite crawling completo",
+        "Sitemap XML existe y es válido",
+        "ETags y Last-Modified presentes"
+      ],
+      "findings": [
+        {
+          "title": "Dominio incorrecto en robots.txt",
+          "severity": "Critical",
+          "description": "El sitemap en robots.txt referencia webmakingstudios.com (plural) en vez del dominio real webmakingstudio.com (singular). Google no encuentra el sitemap.",
+          "recommendation": "Cambiar Sitemap URL a https://webmakingstudio.com/sitemap.xml"
+        },
+        {
+          "title": "auditoria.html indexable con datos sensibles",
+          "severity": "Critical",
+          "description": "La página contiene vulnerabilidades de seguridad, notas de API keys commiteadas, y datos personales. Sin noindex ni bloqueo en robots.txt.",
+          "recommendation": "Añadir <meta name='robots' content='noindex, nofollow'> y bloquear /auditoria.html en robots.txt"
+        },
+        {
+          "title": "Redirect 307 temporal en vez de 301 permanente",
+          "severity": "High",
+          "description": "www.webmakingstudio.com → webmakingstudio.com usa HTTP 307 (temporal). SEO requiere 301 (permanente) para canonicalización correcta.",
+          "recommendation": "Configurar redirect 301 en Vercel (vercel.json o vercel.ts)"
+        },
+        {
+          "title": "Headers de seguridad ausentes",
+          "severity": "High",
+          "description": "Faltan Content-Security-Policy, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy.",
+          "recommendation": "Añadir security headers en configuración de Vercel"
+        },
+        {
+          "title": "CORS wildcard inseguro",
+          "severity": "Medium",
+          "description": "access-control-allow-origin: * permite acceso desde cualquier origen.",
+          "recommendation": "Restringir a orígenes específicos necesarios"
+        },
+        {
+          "title": "URL con fragmento (#) en sitemap",
+          "severity": "Medium",
+          "description": "#recursos en el sitemap no es una URL distinta. Google ignora los fragmentos.",
+          "recommendation": "Crear página /recursos/ separada o eliminar entrada del sitemap"
+        },
+        {
+          "title": "Comentario incorrecto en robots.txt sobre noindex",
+          "severity": "Medium",
+          "description": "Dice que las páginas legales tienen meta noindex pero no es cierto.",
+          "recommendation": "Corregir el comentario o añadir los meta noindex correspondientes"
+        },
+        {
+          "title": "Sitemap lastmod sin actualizar",
+          "severity": "Low",
+          "description": "Todas las URLs tienen lastmod 2026-07-06.",
+          "recommendation": "Mantener lastmod actualizado por página"
+        }
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 30,
+      "weight": 23,
+      "what_works": [
+        "Copy en español bien escrito, orientado a beneficios",
+        "Propuesta de valor clara",
+        "Estructura de headings lógica (H1→H2→H3)",
+        "Proceso de trabajo transparente",
+        "Servicios claramente definidos",
+        "Tono profesional y coherente"
+      ],
+      "findings": [
+        {
+          "title": "Aviso Legal con texto de plantilla publicado",
+          "severity": "Critical",
+          "description": "La página contiene 'Plantilla de aviso legal pendiente de completar antes de publicar' y frases como 'Explicar que la web informa sobre los servicios de la marca' — instrucciones para el developer, no texto legal.",
+          "recommendation": "Completar inmediatamente con datos legales reales de Alex Gutierrez Navau"
+        },
+        {
+          "title": "Política de Privacidad con placeholder publicado",
+          "severity": "Critical",
+          "description": "Contiene 'Plantilla de política de privacidad pendiente de completar', 'Indicar que aplicas medidas razonables de seguridad'. Visible para usuarios y Google.",
+          "recommendation": "Completar con texto legal real, incluyendo todas las medidas de seguridad reales"
+        },
+        {
+          "title": "Error de encoding UTF-8",
+          "severity": "Critical",
+          "description": "española aparece como espa��ola en aviso-legal.html.",
+          "recommendation": "Corregir el carácter: española"
+        },
+        {
+          "title": "Cero señales de autoría (E-E-A-T)",
+          "severity": "High",
+          "description": "Sin nombres, sin caras, sin biografías, sin credenciales, sin sección Sobre nosotros.",
+          "recommendation": "Crear página About con Alex Gutierrez Navau, foto, experiencia y enlaces a redes profesionales"
+        },
+        {
+          "title": "Sin testimonios ni casos de éxito",
+          "severity": "High",
+          "description": "Sin prueba social de ningún tipo. Sin portfolio ni logos de clientes.",
+          "recommendation": "Añadir 3-5 testimonios reales con nombres, fotos y resultados concretos"
+        },
+        {
+          "title": "Versión en inglés no traducida",
+          "severity": "High",
+          "description": "?lang=en muestra el mismo contenido en español. El language switcher no funciona.",
+          "recommendation": "Traducir completamente el sitio o eliminar el toggle de idiomas"
+        },
+        {
+          "title": "Blog posts sin páginas propias",
+          "severity": "High",
+          "description": "3 artículos listados pero 'Leer más' no lleva a URLs separadas con contenido completo.",
+          "recommendation": "Crear páginas de blog individuales con URLs propias"
+        },
+        {
+          "title": "Email de Gmail en vez de dominio",
+          "severity": "Medium",
+          "description": "webmakingstudios@gmail.com reduce profesionalismo vs alex@webmakingstudio.com",
+          "recommendation": "Configurar email con dominio propio"
+        },
+        {
+          "title": "Anchor text genérico 'Leer más'",
+          "severity": "Medium",
+          "description": "Todos los enlaces a recursos usan 'Leer más' sin keywords descriptivas.",
+          "recommendation": "Usar títulos de artículos como texto de enlace"
+        }
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 25,
+      "weight": 20,
+      "what_works": [
+        "Title tags presentes en todas las páginas",
+        "H1 único por página",
+        "Jerarquía de headings correcta en general",
+        "URLs limpias y descriptivas"
+      ],
+      "findings": [
+        {
+          "title": "CERO meta descriptions en todo el sitio",
+          "severity": "Critical",
+          "description": "Ninguna página (Home, Aviso Legal, Privacidad, Auditoría) tiene meta description. Google auto-genera snippets sin control.",
+          "recommendation": "Añadir meta description única de 150-160 caracteres por página con keywords relevantes"
+        },
+        {
+          "title": "Arquitectura 100% single-page",
+          "severity": "Critical",
+          "description": "Toda la web es una sola página con anchors (#servicios, #proceso, #contacto). Solo 2 páginas legales + 1 auditoría como páginas separadas. 0 profundidad de sitio.",
+          "recommendation": "Crear páginas individuales para Servicios, Proceso, Blog, Sobre mí, Contacto"
+        },
+        {
+          "title": "Sin Open Graph / Twitter Cards",
+          "severity": "High",
+          "description": "Compartir en WhatsApp, Twitter, LinkedIn, Facebook muestra snippets sin control. Sin og:image, og:title, og:description.",
+          "recommendation": "Añadir OG tags + Twitter Cards en todas las páginas"
+        },
+        {
+          "title": "Hreflang solo en sitemap, no en HTML",
+          "severity": "High",
+          "description": "Sin <link rel='alternate' hreflang='...'> en el <head>. Google prefiere tags HTML sobre sitemap para hreflang.",
+          "recommendation": "Añadir hreflang tags en el <head> de cada página + header HTTP Link"
+        },
+        {
+          "title": "Sin canonical tags en subpáginas",
+          "severity": "Medium",
+          "description": "aviso-legal.html y politica-de-privacidad.html no tienen self-referencing canonical.",
+          "recommendation": "Añadir <link rel='canonical' href='...'> en cada subpágina"
+        },
+        {
+          "title": "auditoria.html sin viewport meta",
+          "severity": "Medium",
+          "description": "Falta <meta name='viewport' content='width=device-width, initial-scale=1.0'> — error de usabilidad móvil en Search Console.",
+          "recommendation": "Añadir viewport meta tag en auditoria.html"
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 0,
+      "weight": 10,
+      "what_works": [],
+      "findings": [
+        {
+          "title": "CERO schema markup en todo el sitio",
+          "severity": "Critical",
+          "description": "Sin JSON-LD, Microdata ni RDFa en ninguna página. Google no puede identificar la entidad, tipo de negocio, servicios, ni generar rich results.",
+          "recommendation": "Implementar schema Organization (ProfessionalService), Service (x3), WebSite, BreadcrumbList, FAQ (si aplica)"
+        }
+      ]
+    },
+    {
+      "name": "Performance (Core Web Vitals)",
+      "score": 55,
+      "weight": 10,
+      "what_works": [
+        "Hosting en Vercel con CDN global",
+        "Caché funcionando (x-vercel-cache: HIT)",
+        "HTTPS + HSTS (2 años)",
+        "Sitio ligero (~29KB HTML estático)",
+        "Pocas imágenes → carga rápida probable"
+      ],
+      "findings": [
+        {
+          "title": "Sin datos reales de CWV",
+          "severity": "Medium",
+          "description": "No se pudieron obtener métricas de Lighthouse/CrUX en este análisis. Estimación basada en arquitectura del sitio.",
+          "recommendation": "Ejecutar PageSpeed Insights y conectar Google Search Console para datos de campo CrUX"
+        },
+        {
+          "title": "auditoria.html sin viewport meta",
+          "severity": "Medium",
+          "description": "Causa error de usabilidad móvil en Search Console.",
+          "recommendation": "Añadir viewport meta tag"
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 20,
+      "weight": 10,
+      "what_works": [
+        "Contenido claro y bien estructurado",
+        "Propuesta de valor definida",
+        "Tipo de negocio fácilmente identificable"
+      ],
+      "findings": [
+        {
+          "title": "Sin llms.txt",
+          "severity": "Critical",
+          "description": "Los crawlers de IA (ChatGPT, Claude, Gemini, Perplexity) no tienen guía de contenido del sitio.",
+          "recommendation": "Crear /llms.txt con resumen, páginas clave y estructura del sitio"
+        },
+        {
+          "title": "Sin entidad en Knowledge Graph",
+          "severity": "High",
+          "description": "Alex Gutierrez Navau y WebMakingStudios no existen como entidades para Google. Sin schema de entidad.",
+          "recommendation": "Implementar schema Organization + Person. Crear Google Business Profile."
+        },
+        {
+          "title": "Sin backlinks ni citas externas",
+          "severity": "High",
+          "description": "Sin presencia en otros sitios, directorios o publicaciones. Los LLMs no tienen señales de autoridad.",
+          "recommendation": "Estrategia de link building local. Listar en directorios. Guest posting."
+        },
+        {
+          "title": "Contenido no optimizado para ser 'citable'",
+          "severity": "Medium",
+          "description": "El contenido responde preguntas pero no incluye definiciones concisas, estadísticas o datos propios que un LLM pueda citar.",
+          "recommendation": "Añadir definiciones, datos, estadísticas propias en el contenido"
+        }
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 40,
+      "weight": 5,
+      "what_works": [
+        "Logo SVG con alt text",
+        "Pocas imágenes = carga rápida"
+      ],
+      "findings": [
+        {
+          "title": "Solo 1 imagen en todo el sitio",
+          "severity": "Medium",
+          "description": "Sin hero image, sin iconos de servicios, sin fotos de proyectos o personas. Oportunidad visual perdida.",
+          "recommendation": "Añadir imágenes relevantes con alt text descriptivo y en formato WebP/AVIF"
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Week 1",
+        "items": [
+          "Corregir dominio en robots.txt (webmakingstudios.com → webmakingstudio.com)",
+          "Añadir noindex a auditoria.html",
+          "Completar Aviso Legal con datos reales",
+          "Completar Política de Privacidad con texto real",
+          "Añadir meta descriptions en las 4 páginas",
+          "Implementar schema Organization (JSON-LD)",
+          "Cambiar redirect 307 → 301 en Vercel",
+          "Corregir encoding española en aviso-legal.html"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "Weeks 2-3",
+        "items": [
+          "Crear página Sobre mí con foto y schema Person",
+          "Añadir 3-5 testimonios reales con schema Review",
+          "Añadir Open Graph + Twitter Cards en todas las páginas",
+          "Añadir hreflang en HTML head de cada página",
+          "Crear páginas de blog individuales (3 artículos)",
+          "Añadir security headers (CSP, X-Frame-Options, etc.)",
+          "Implementar schema Service para cada servicio",
+          "Traducir sitio al inglés o eliminar language switcher",
+          "Configurar email de dominio (alex@webmakingstudio.com)",
+          "Crear Google Business Profile",
+          "Restringir CORS a orígenes específicos"
+        ]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 2",
+        "items": [
+          "Crear llms.txt para crawlers de IA",
+          "Crear página /recursos/ independiente",
+          "Añadir Schema FAQ si se crea sección de preguntas",
+          "Crear portfolio visual con 3-5 proyectos",
+          "Añadir canonical tags en subpáginas",
+          "Corregir viewport meta en auditoria.html",
+          "Listar en directorios (Clutch, Sortlist, Behance, Dribbble)"
+        ]
+      },
+      {
+        "name": "Phase 4: Monitoring & Iteration",
+        "timeframe": "Ongoing",
+        "items": [
+          "Configurar Google Search Console",
+          "Configurar Google Analytics / GA4",
+          "Ejecutar Lighthouse audit mensual",
+          "Actualizar sitemap lastmod regularmente",
+          "Crear 1-2 blog posts/mes",
+          "Link building local: 2-3 backlinks/mes"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": null
+  },
+  "metadata": {
+    "audit_date": "2026-07-21",
+    "tool": "claude-seo v2.2.4",
+    "url": "https://webmakingstudio.com",
+    "domain": "webmakingstudio.com",
+    "pages_crawled": 4,
+    "total_findings": 30,
+    "critical": 8,
+    "high": 11,
+    "medium": 9,
+    "low": 2
+  }
+}

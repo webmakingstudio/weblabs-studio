@@ -45,7 +45,7 @@ const legalTranslations = {
     legalNoticeSectionThreeItemTwo:
       "Queda expresamente prohibida la reproducción total o parcial, distribución, comunicación pública, transformación, puesta a disposición del público o cualquier otra forma de explotación de los contenidos del sitio web sin la autorización previa y por escrito de su legítimo titular, salvo en los casos permitidos por la ley.",
     legalNoticeSectionThreeItemThree:
-      "El sitio web puede incorporar recursos de terceros —como tipografías de Google Fonts— que se rigen por sus propias licencias y políticas. Su inclusión no implica respaldo ni garantía alguna sobre dichos recursos por parte de WebMakingStudios.",
+      "El sitio web utiliza las tipografías Manrope e Instrument Serif, servidas de forma autohospedada desde los servidores propios del sitio, sin realizar transferencias de datos a proveedores externos de fuentes tipográficas.",
     legalNoticeSectionFourTitle: "4. Responsabilidad",
     legalNoticeSectionFourItemOne:
       "WebMakingStudios no garantiza la disponibilidad, continuidad o infalibilidad del sitio web, ni la ausencia de errores en sus contenidos. En consecuencia, no se hace responsable de los daños y perjuicios que pudieran derivarse de interrupciones del servicio, demoras, errores, falta de disponibilidad por causas técnicas, de fuerza mayor o de cualquier otra índole ajena a su control directo.",
@@ -117,7 +117,7 @@ const legalTranslations = {
     privacySectionSixItemFour:
       "Recepción y gestión del correo electrónico: Google (Gmail).",
     privacySectionSixItemFive:
-      "Tipografías del sitio: Google Fonts, que pueden implicar la transmisión de la dirección IP a servidores de Google en Estados Unidos.",
+      "Tipografías del sitio: Manrope e Instrument Serif, servidas de forma autohospedada (sin transferencia de datos a terceros).",
     privacySectionSixItemSix:
       "En caso de contacto a través de WhatsApp, los datos compartidos estarán sujetos a la política de privacidad de WhatsApp Ireland Limited / Meta Platforms, Inc.",
     privacySectionSixItemSeven:
@@ -196,7 +196,7 @@ const legalTranslations = {
     legalNoticeSectionThreeItemTwo:
       "The total or partial reproduction, distribution, public communication, transformation, making available to the public or any other form of exploitation of the website contents is expressly prohibited without the prior written authorisation of the rightful owner, except where permitted by law.",
     legalNoticeSectionThreeItemThree:
-      "The website may incorporate third-party resources —such as Google Fonts— which are governed by their own licences and policies. Their inclusion does not imply endorsement or any guarantee regarding those resources on the part of WebMakingStudios.",
+      "The website uses Manrope and Instrument Serif fonts, served in a self-hosted manner from the website's own servers, without transferring data to external font providers.",
     legalNoticeSectionFourTitle: "4. Liability",
     legalNoticeSectionFourItemOne:
       "WebMakingStudios does not guarantee the availability, continuity or infallibility of the website, nor the absence of errors in its contents. Accordingly, it accepts no liability for damages of any kind that may arise from service interruptions, delays, errors, lack of availability due to technical reasons, force majeure or any other cause beyond its direct control.",
@@ -267,7 +267,7 @@ const legalTranslations = {
     privacySectionSixItemFour:
       "Email reception and management: Google (Gmail).",
     privacySectionSixItemFive:
-      "Website fonts: Google Fonts, which may involve the transmission of the IP address to Google servers in the United States.",
+      "Website fonts: Manrope and Instrument Serif, served in a self-hosted manner (no data transfer to third parties).",
     privacySectionSixItemSix:
       "Where contact is made through WhatsApp, the data shared shall be subject to the privacy policy of WhatsApp Ireland Limited / Meta Platforms, Inc.",
     privacySectionSixItemSeven:
